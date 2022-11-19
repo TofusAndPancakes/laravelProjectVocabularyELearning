@@ -15,6 +15,23 @@ return new class extends Migration
     {
         Schema::create('uservocabularies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('level_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
+            $table->string('language1');
+            $table->string('language2');
+
+            $table->string('mnemonics');
+            $table->string('mnemoniclist')->nullable();
+            $table->string('semanticlist');
+
+            $table->integer('attempts_lang1')->default(0);
+            $table->integer('success_lang1')->default(0);
+            $table->integer('attempts_lang2')->default(0);
+            $table->integer('success_lang2')->default(0);
+
+            $table->string('memorizationLevel')->default('basic1');
+            $table->integer('nextReview');
             $table->timestamps();
         });
     }

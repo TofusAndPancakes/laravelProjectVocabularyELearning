@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Level;
+use App\Models\Vocabulary;
+
+class AdminController extends Controller
+{
+    public function index(){
+        $levelContents = Level::all();
+        return view('admins.indexLevel', ['levels' => $levelContents]); 
+    }
+
+    public function indexLevel(Level $level){
+        return view('admins.indexVocabulary', [
+            'level'=> $level,
+            'vocabularies' => Vocabulary::where('level_id', $level->id)->get(),
+        ]);
+    }
+}

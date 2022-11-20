@@ -30,7 +30,7 @@ return new class extends Migration
             $table->integer('attempts_lang2')->default(0);
             $table->integer('success_lang2')->default(0);
 
-            $table->string('memorizationLevel')->default('basic1');
+            $table->string('memorizationLevel')->default('basic0');
             $table->integer('nextReview');
             $table->timestamps();
         });

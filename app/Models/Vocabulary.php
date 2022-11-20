@@ -10,7 +10,7 @@ class Vocabulary extends Model
     use HasFactory;
 
     protected $fillable = [
-        'language1', 'language2', 'mnemonics', 'mnemonicslist', 'semanticlist',
+        'level_id', 'language1', 'language2', 'mnemonics', 'mnemoniclist', 'semanticlist',
     ];
 
     //Relationship to Level

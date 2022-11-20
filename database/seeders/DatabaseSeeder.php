@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Level;
 use App\Models\Vocabulary;
+use App\Models\UserLevel;
 
 class DatabaseSeeder extends Seeder
 {

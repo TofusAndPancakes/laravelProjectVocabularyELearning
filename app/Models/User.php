@@ -41,4 +41,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Relationship to UserLevel
+    public function userlevel(){
+         return $this->hasOne(UserLevel::class, 'user_id');
+    }
 }

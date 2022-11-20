@@ -2,7 +2,7 @@
 
 @section('content')
 <p>Create New Vocabulary</p>
-    <form method="POST" action="">
+    <form method="POST" action="/Thesis-VocabularyWebApp/vocabwebapp/public/admin/level/{{$level->id}}/vocabulary/store">
         @csrf
 
         <div class="form">

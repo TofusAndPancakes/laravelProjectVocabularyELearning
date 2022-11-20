@@ -6,17 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\VocabularyController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\WebAppController;
 
 //Default Homepage
 Route::get('/', function () {
@@ -31,10 +21,14 @@ Route::post('/users/login', [UserController::class, 'authenticate'])->middleware
 //Logout
 Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
+// -- User Interface --
+Route::get('/menu', [WebAppController::class, 'index'])->middleware('auth');
+Route::get('/lesson', [WebAppController::class, 'lesson'])->middleware('auth');
+
 // -- Admin Priorities -- 
-Route::get('/admin', [AdminController::class, 'index'])->middleware('auth');
+Route::get('/admin', [AdminController::class, 'indexLevel'])->middleware('auth');
 //Manage Vocabularies
-Route::get('/admin/level/{level}/vocabulary', [AdminController::class, 'indexLevel'])->middleware('auth');
+Route::get('/admin/level/{level}/vocabulary', [AdminController::class, 'indexVocabulary'])->middleware('auth');
 
 //Create New Levels
 Route::get('/admin/level/create', [LevelController::class, 'create'])->middleware('auth');

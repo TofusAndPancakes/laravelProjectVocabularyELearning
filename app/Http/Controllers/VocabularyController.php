@@ -14,35 +14,61 @@ class VocabularyController extends Controller
     }
 
     //Store the Created New Vocabulary
-    public function store(Request $request){
+    public function store(Request $request, Level $level){
         $formFields = $request->validate([
-            'leveltitle' => ['required', Rule::unique('levels', 'leveltitle')],
+            'language1' => 'required',
+            'language2' => 'required',
+            'mnemonics' => 'required',
+            'mnemoniclist' => 'present|string|max:255',
+            'semanticlist' => 'required',
         ]);
 
-        Level::create($formFields);
+        $level_id = $level->id;
 
-        return redirect('/admin')->with('message', 'Level Created Succesfully!');
+        $formFields['level_id'] = $level_id;
+
+        Vocabulary::create($formFields);
+
+        return redirect('/admin/level/'.$level_id.'/vocabulary')->with('message', 'Vocabulary Created Succesfully!');
     }
 
     //Show the Edit Form
-    public function edit(Level $level){
-        return view('levels.edit', ['level' => $level]);
+    public function edit(Level $level, Vocabulary $vocabulary){
+        return view('vocabularies.edit', ['level' => $level, 'vocabulary' => $vocabulary,]);
     }
 
     //Update the Vocabulary
-    public function update(Request $request, Level $level){
+    public function update(Request $request, Level $level, Vocabulary $vocabulary){
+
+        if($vocabulary->level_id != $level->id){
+            abort(403, 'Unauthorized Action');
+        }
+
         $formFields = $request->validate([
-            'leveltitle' => ['required', Rule::unique('levels', 'leveltitle')],
+            'language1' => 'required',
+            'language2' => 'required',
+            'mnemonics' => 'required',
+            'mnemoniclist' => 'nullable',
+            'semanticlist' => 'required',
         ]);
 
-        $level->update($formFields);
+        $level_id = $level->id;
 
-        return redirect('/admin')->with('message', 'Level Updated Succesfully!');
+        $formFields['level_id'] = $level_id;
+
+        $vocabulary->update($formFields);
+
+        return redirect('/admin/level/'.$level_id.'/vocabulary')->with('message', 'Vocabulary Updated Succesfully!');
     }
 
     //Delete the Vocabulary
-    public function delete(Level $level){
-        $level->delete();
+    public function delete(Level $level, Vocabulary $vocabulary){
+        if($vocabulary->level_id != $level->id){
+            abort(403, 'Unauthorized Action');
+        }
 
+        $vocabulary->delete();
+
+        return redirect('/admin/level/'.$level_id.'/vocabulary')->with('message', 'Vocabulary Deleted Succesfully!');
     }
 }

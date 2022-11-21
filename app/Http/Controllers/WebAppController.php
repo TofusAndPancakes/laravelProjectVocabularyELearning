@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use App\Models\Level;
 use App\Models\UserLevel;
 use App\Models\Vocabulary;
@@ -87,7 +89,23 @@ class WebAppController extends Controller
         ]);
     }
 
-    public function review(){
+    public function result(Request $request){
+
+        $reviewRecordBreak = json_decode($request->reviewRecordListArray, true);
         
+        $validator = Validator::make($reviewRecordBreak, [
+            '*.entry_id' => 'required|integer',
+            '*.success_lang1' => 'required|integer',
+            '*.success_lang2' => 'required|integer',
+            '*.attempts_lang1' => 'required|integer',
+            '*.attempts_lang2' => 'required|integer',
+            '*.complete' => 'required|integer',
+        ]);
+
+        if($validator->fails()){
+            abort(403, 'Unauthorized Action');
+        }
+
+        dd($reviewRecordBreak);
     }
 }

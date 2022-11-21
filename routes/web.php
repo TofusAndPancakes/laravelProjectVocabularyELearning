@@ -24,6 +24,7 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 // -- User Interface --
 Route::get('/menu', [WebAppController::class, 'index'])->middleware('auth');
 Route::get('/lesson', [WebAppController::class, 'lesson'])->middleware('auth');
+Route::post('/lesson/result', [WebAppController::class, 'result'])->middleware('auth');
 
 // -- Admin Priorities -- 
 Route::get('/admin', [AdminController::class, 'indexLevel'])->middleware('auth');

@@ -34,7 +34,7 @@
     </div>
 
     <div>
-        <p>Do Review</p>
+        <a href="/Thesis-VocabularyWebApp/vocabwebapp/public/review"><p>Do Review</p></a>
         <p>{{$newReviews}}</p>
     </div>
 

@@ -225,7 +225,7 @@ for (var i = 0; i < reviewRecordList.length; i++) {
 
 <script>
 
-
+//Temporary Debugging
 var reviewRecordResult = JSON.stringify(reviewRecordList);
 document.getElementById('reviewRecordListArray').value = reviewRecordResult;
 

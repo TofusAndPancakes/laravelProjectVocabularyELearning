@@ -23,8 +23,14 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 // -- User Interface --
 Route::get('/menu', [WebAppController::class, 'index'])->middleware('auth');
+
+//Lesson
 Route::get('/lesson', [WebAppController::class, 'lesson'])->middleware('auth');
 Route::post('/lesson/result', [WebAppController::class, 'result'])->middleware('auth');
+
+//Review
+Route::get('/review', [WebAppController::class, 'review'])->middleware('auth');
+Route::get('/review/result', [WebAppController::class, 'result'])->middleware('auth');
 
 // -- Admin Priorities -- 
 Route::get('/admin', [AdminController::class, 'indexLevel'])->middleware('auth');

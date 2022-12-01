@@ -167,44 +167,65 @@ for (var i = 0; i < reviewRecordList.length; i++) {
     }
 
 </style>
-
-<h1>Review</h1>
-<!-- Review Area -->
-<div id="reviewArea">
-    <div class="container">
-    <h2 id="questionArea"></h2>
-    <p>Question Above</p>
-    <p id="resultArea"></p>
-    </div>
-
-    <form id="myForm">  
-        <label>Answer<input id="answer" name="answer" value=""></label>
-        <input type="submit" value="Submit">
-    </form>
-</div>
-
-<form method="POST" action="/Thesis-VocabularyWebApp/vocabwebapp/public/lesson/result">
-    @csrf
-    <div class="form">
-        <input type="hidden" id="reviewRecordListArray" name="reviewRecordListArray" value="">
-    <div class="form">
-        <button type="submit">Submit Result</button>
+<div class="indexBodySection">
+    <div class="indexBodyMarginColumnFull">
+        <!-- Review Area -->
+        <div id="reviewArea" class="reviewAreaSection">
+            <div class="reviewQuestionSection">
+                <h2 id="questionArea"></h2>
+            </div>
+            <div class="reviewInstructionSection">
+                <p>Answer</p>
+                <p id="resultArea"></p>
+            </div>
+            <form class="reviewAnswerSection" id="myForm">
+                <div class="reviewAnswerInput">
+                    <input class="reviewInput" id="answer" name="answer" value="">
+                    <button class="reviewButton" type="submit"><p>Submit</p></button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-</form>
+<div class="reviewFinishSection" id="reviewModalArea">
+    <div class="reviewFinishModal">
+        <div class="reviewFinishModalText">
+            <h1>Review Complete!</h1>
+            <hr>
+            <p>Please press [Submit Result] bellow to continue!</p>
+        </div>
+        <div class="reviewFinishModalButton">
+            <form method="POST" action="/Thesis-VocabularyWebApp/vocabwebapp/public/review/result">
+                @csrf
+                <div class="form">
+                    <input type="hidden" id="reviewRecordListArray" name="reviewRecordListArray" value="">
+                    <div class="form">
+                        <button class="formButton" type="submit">Submit Result</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>  
+</div>
 
 <script>
 
+/*
 //Temporary Debugging
 var reviewRecordResult = JSON.stringify(reviewRecordList);
 document.getElementById('reviewRecordListArray').value = reviewRecordResult;
+*/
 
 // -- Review Script -- 
 //Locate the Answer
 const questionArea = document.getElementById('questionArea');
 //Locate the Result
 const resultArea = document.getElementById('resultArea');
+
+//Locate the Completion Modal
+const reviewModalArea = document.getElementById('reviewModalArea');
+const reviewModalClass = reviewModalArea.classList;
 
 //Count the Total of the Review Entries
 const review_total = newReviewList.length;
@@ -338,7 +359,7 @@ function getData(form) {
         //If it is not the last one!
         nextEntry();
     } else {
-        console.log("Stop!");
+        //console.log("Stop!");
         endReview();
     }
 
@@ -370,9 +391,10 @@ function getCorrect(form) {
     //If it is not the last one!
     nextEntry();
     } else {
-        console.log("Stop!");
+        //console.log("Stop!");
         review_state = 0;
-        endReview();
+
+        reviewModalClass.toggle('reviewFinishSectionDisplay');
 
         var reviewRecordResult = JSON.stringify(reviewRecordList);
         document.getElementById('reviewRecordListArray').value = reviewRecordResult;

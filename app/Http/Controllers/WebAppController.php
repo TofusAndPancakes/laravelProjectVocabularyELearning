@@ -20,11 +20,11 @@ class WebAppController extends Controller
 
         //Check for New Lessons
         if ($level != null){
+           
             if ($userLevel->currentlevelimport == 0){
                 //User hasnt imported
                 //Search in Vocabulary Table How Much!
                 $newLessons = Vocabulary::where('level_id', $level->id)->count();
-    
             } else {
                 //User has imported
                 //Note that memorizationLevel = 0 means no learning has been completed yet...
@@ -33,6 +33,7 @@ class WebAppController extends Controller
                                                         ->where('memorizationLevel', 'basic0')->count();
             }    
         } else {
+            //dd("no dice!");
             //There is no next level!
             $newLessons = null;
         }
@@ -44,7 +45,7 @@ class WebAppController extends Controller
                                                 ->count();
         //Add Current Time Later!
 
-        return view('users.indexUser', [
+        return view('vocabapp.indexUser', [
             'newLessons' => $newLessons,
             'newReviews' => $newReviews,
         ]);
@@ -90,9 +91,7 @@ class WebAppController extends Controller
                                         ->where('memorizationLevel', 'basic0')
                                         ->oldest('updated_at')->take(5)->get();
 
-        dd($newLessons);
-
-        return view('users.lesson', [
+        return view('vocabapp.lesson', [
             'newLessons' => $newLessons,
         ]);
     }
@@ -171,7 +170,6 @@ class WebAppController extends Controller
                             //Just update the time!
                             $idValidation->nextReview = Carbon::now()->timestamp + $reviewSetting[0][$idValidation->memorizationLevel]['nextLevelReview'];
 
-
                         } else if ($reviewSetting[0][$idValidation->memorizationLevel]['nextLevel'] == 'basic5'){
 
                             $idValidation->memorizationLevel = $reviewSetting[0][$idValidation->memorizationLevel]['nextLevel'];
@@ -183,6 +181,7 @@ class WebAppController extends Controller
                             }
 
                         } else {
+
                             $idValidation->memorizationLevel = $reviewSetting[0][$idValidation->memorizationLevel]['nextLevel'];
                             $idValidation->nextReview = Carbon::now()->timestamp + $reviewSetting[0][$idValidation->memorizationLevel]['nextLevelReview'];
                         }
@@ -234,6 +233,56 @@ class WebAppController extends Controller
         return redirect('/menu');
     }
 
+    public function resultLesson(Request $request){
+        //Testing Version!
+        $reviewSetting = array([
+            "basic0"  => array("nextLevel" => "basic1", "nextReview" => 1, 'nextLevelReview' =>1,),
+            "basic1"  => array("nextLevel" => "basic2", "nextReview" => 1,'nextLevelReview' =>1,),
+            "basic2"  => array("nextLevel" => "basic3", "nextReview" => 1,'nextLevelReview' =>1,),
+            "basic3"  => array("nextLevel" => "basic4", "nextReview" => 1,'nextLevelReview' =>1,),
+            "basic4"  => array("nextLevel" => "basic5", "nextReview" => 1,'nextLevelReview' =>1,),
+            "basic5"  => array("nextLevel" => "intermediate1", "nextReview" => 1,'nextLevelReview' =>1,),
+            "intermediate1"  => array("nextLevel" => "max", "nextReview" => 1,'nextLevelReview' =>1,),
+        ]);
+
+        $reviewRecordBreak = json_decode($request->reviewRecordListArray, true);
+        
+        //Validation
+        $validator = Validator::make($reviewRecordBreak, [
+            '*.entry_id' => 'required|integer',
+            '*.success_lang1' => 'required|integer',
+            '*.success_lang2' => 'required|integer',
+            '*.attempts_lang1' => 'required|integer',
+            '*.attempts_lang2' => 'required|integer',
+            '*.complete' => 'required|integer',
+        ]);
+
+        if($validator->fails()){
+            abort(403, 'Unauthorized Action');
+        }
+
+        //Check The Values!
+        foreach($reviewRecordBreak as $review){
+            $idValidation = UserVocabulary::where('id', $review['entry_id'])->where('user_id', auth()->id())->first();
+            if ($idValidation == null){
+                //Fails because someone has changed the ID done something! Dont add it in and just go to the next one!
+            } else {
+                //Use the ID Validation and Update through it!
+                $idValidation->attempts_lang1 = $idValidation->attempts_lang1 + $review['attempts_lang1'];
+                $idValidation->success_lang1 = $idValidation->success_lang1 + $review['success_lang1'];
+                $idValidation->attempts_lang2 = $idValidation->attempts_lang2 + $review['attempts_lang2'];
+                $idValidation->success_lang2 = $idValidation->success_lang2 + $review['success_lang2'];
+
+                $idValidation->memorizationLevel = $reviewSetting[0][$idValidation->memorizationLevel]['nextLevel'];
+                $idValidation->nextReview = Carbon::now()->timestamp + $reviewSetting[0][$idValidation->memorizationLevel]['nextLevelReview'];   
+            }
+
+            $idValidation->save();
+        }
+
+        return redirect('/menu');
+    }
+
     public function review(){
         //Check user Level
         $userLevel = UserLevel::where('user_id', auth()->id())->first();
@@ -246,7 +295,7 @@ class WebAppController extends Controller
                                     ->where('nextReview', '<=', Carbon::now()->timestamp)
                                     ->oldest('updated_at')->take(5)->get();
 
-        return view('users.review', [
+        return view('vocabapp.review', [
         'newReviews' => $newReviews,
         ]);
     }

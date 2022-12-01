@@ -170,6 +170,7 @@ for (var i = 0; i < reviewRecordList.length; i++) {
   .displayNoneStyle {
       visibility: hidden;
       opacity: 0;
+      display: none;
       transition: visibility 0.3s, opacity 0.3s;
   }
 
@@ -179,48 +180,83 @@ for (var i = 0; i < reviewRecordList.length; i++) {
   }
 
 </style>
+<div class="indexBodySection">
+  <div class="indexBodyMarginColumnFull">
+      <!-- Lesson Area -->
+      <div id="lessonArea" class="lessonAreaSection">
+        <div class="lessonWordSection">
+          <h2 id='lessonLanguage1'></h2>
+        </div>
+        <div class="lessonSeperatorSection">
+          <p>Mnemonics</p>
+        </div>
+        <div class="lessonContentSection">
+          <div class="lessonContentText">
+            <p id='lessonLanguage2'></p>
+            <hr>
+            <p id='lessonMnemonics'></p>
+          </div>
+          <div class="lessonContentButton">
+            <button class="formButton" onclick='previousLessonButton()'>Previous</button>
+            <button class="formButton" onclick='nextLessonButton()'>Next</button>
+          </div>
+        </div>
+      </div>
 
-<h1>Review</h1>
-<!-- Lesson Area -->
-<div id="lessonArea">
-
-  <p id='lessonLanguage1'></p>
-  <p id='lessonLanguage2'></p>
-  <p id='lessonMnemonics'></p>
-
-  <button onclick='previousLessonButton()'>Previous</button>
-  <button onclick='nextLessonButton()'>Next</button>
-</div>
-
-<!-- Review Area -->
-<div id="reviewArea" class="displayNoneStyle">
-  <div class="container">
-    <h2 id="questionArea"></h2>
-    <p>Question Above</p>
-    <p id="resultArea"></p>
+      <!-- Review Area -->
+      <div id="reviewArea" class="reviewAreaSection displayNoneStyle">
+          <div class="reviewQuestionSection">
+              <h2 id="questionArea"></h2>
+          </div>
+          <div class="reviewInstructionSection">
+              <p>Answer</p>
+              <p id="resultArea"></p>
+          </div>
+          <form class="reviewAnswerSection" id="myForm">
+              <div class="reviewAnswerInput">
+                  <input class="reviewInput" id="answer" name="answer" value="">
+                  <button class="reviewButton" type="submit"><p>Submit</p></button>
+              </div>
+          </form>
+      </div>
   </div>
-
-  <form id="myForm">  
-      <label>Answer<input id="answer" name="answer" value=""></label>
-      <input type="submit" value="Submit">
-  </form>
 </div>
 
-<div id="modalArea" class="displayNoneStyle">
-  <div>Are you ready for the Review?</div>
-  <button onclick='loadReviewCancel()'>No</button>
-  <button onclick='loadReview()'>Yes</button>
-</div>
+<div class="lessonFinishSection" id="modalArea" class="displayNoneStyle">
+  <div class="lessonFinishModal">
+    <div class="lessonFinishModalText">
+      <h1>Lesson Complete!</h1>
+      <hr>
+      <p>Are you ready for the Review?</p>
+    </div>
 
-<form method="POST" action="/Thesis-VocabularyWebApp/vocabwebapp/public/lesson/result">
-  @csrf
-  <div class="form">
-      <input type="hidden" id="reviewRecordListArray" name="reviewRecordListArray" value="">
-    <div class="form">
-      <button type="submit">Submit Result</button>
+    <div class="lessonFinishModalButton">
+      <button class="formButton lessonFinishModalButtonMargin" onclick='loadReviewCancel()'>No</button>
+      <button class="formButton lessonFinishModalButtonMargin" onclick='loadReview()'>Yes</button>
+    </div>
   </div>
 </div>
 
+<div class="reviewFinishSection" id="reviewModalArea">
+  <div class="reviewFinishModal">
+      <div class="reviewFinishModalText">
+          <h1>Review Complete!</h1>
+          <hr>
+          <p>Please press [Submit Result] bellow to continue!</p>
+      </div>
+      <div class="reviewFinishModalButton">
+          <form method="POST" action="/Thesis-VocabularyWebApp/vocabwebapp/public/lesson/result">
+              @csrf
+              <div class="form">
+                  <input type="hidden" id="reviewRecordListArray" name="reviewRecordListArray" value="">
+                  <div class="form">
+                      <button class="formButton" type="submit">Submit Result</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+  </div>  
+</div>
 </form>
 
 <script>
@@ -238,6 +274,9 @@ var readyReviewModalOpen = 0;
 const readyReview = document.getElementById('modalArea');
 const readyReviewClass = readyReview.classList;
 
+const lessonArea = document.getElementById('lessonArea');
+const lessonAreaClass = lessonArea.classList;
+
 //Review Variables just to Prepare!
 //Locate the Answer
 const questionArea = document.getElementById('questionArea');
@@ -247,12 +286,17 @@ const resultArea = document.getElementById('resultArea');
 const reviewArea = document.getElementById('reviewArea');
 const reviewAreaClass = reviewArea.classList;
 
+const reviewModal = document.getElementById('reviewModalArea');
+const reviewModalClass = reviewModal.classList;
+
+
+
 //Ready Review Function
 function readyReviewModal(){
   if (readyReviewModalOpen == 0){
-    readyReviewClass.toggle('displayStyle');
+    readyReviewClass.toggle('lessonFinishSectionDisplay');
     readyReviewModalOpen = 1;
-    console.log("I'm here!");
+    //console.log("I'm here!");
   }
 }
 
@@ -313,13 +357,13 @@ function nextLessonButton(){
 nextLesson();
 
 function loadReviewCancel(){
-    readyReviewClass.toggle('displayStyle');
+    readyReviewClass.toggle('lessonFinishSectionDisplay');
     readyReviewModalOpen = 0;
-    console.log("Cancelling");
+    //console.log("Cancelling");
 }
 
 function loadReview(){
-    readyReviewClass.toggle('displayStyle');
+    readyReviewClass.toggle('lessonFinishSectionDisplay');
     lesson_state = 0;
     lessonStateEnd();
 
@@ -327,7 +371,8 @@ function loadReview(){
     console.log("Starting Review!");
 
     //Initializing Review
-    reviewAreaClass.toggle('displayStyle');
+    lessonAreaClass.toggle('displayNoneStyle');
+    reviewAreaClass.toggle('displayNoneStyle');
     nextEntry();
 }
 
@@ -497,9 +542,11 @@ function getCorrect(form) {
     //If it is not the last one!
     nextEntry();
   } else {
-      console.log("Stop!");
+      //console.log("Stop!");
       review_state = 0;
-      endReview();
+      //endReview();
+
+      reviewModalClass.toggle('reviewFinishSectionDisplay');
 
       var reviewRecordResult = JSON.stringify(reviewRecordList);
       document.getElementById('reviewRecordListArray').value = reviewRecordResult;

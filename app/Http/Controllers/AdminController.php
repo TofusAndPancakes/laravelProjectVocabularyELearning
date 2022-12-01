@@ -20,4 +20,11 @@ class AdminController extends Controller
             'vocabularies' => Vocabulary::where('level_id', $level->id)->get(),
         ]);
     }
+
+    public function indexUser(){
+        $userContents = User::all();
+        return view('admins.indexUser', [
+            'users'=> $userContents,
+        ]);
+    }
 }

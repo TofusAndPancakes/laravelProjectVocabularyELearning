@@ -1,0 +1,770 @@
+/* Resetting Settings */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none !important;
+    color: #3d3d3d;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    padding: 0;
+    font-size: unset;
+    font-weight: unset;
+    line-height: unset;
+}
+
+body {
+    font-family: 'Rubik', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    color: #3d3d3d;
+}
+
+/* Navbar Section */
+.navbarSection {
+    width: 100%;
+    height: 50px;
+    position: relative;
+    z-index: 10;
+
+    background: #ffffff;
+
+    border-bottom: 2px solid rgba(93, 78, 96, 0.4);
+    box-shadow: 0 1px 10px 5px rgba(93, 78, 96, 0.2);
+    
+    padding-top: 2px;
+}
+
+.navbarMargin {
+    width: 95%;
+    height: 50px;
+    margin: auto;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.navbarLogo {
+    width: auto;
+    height: 50px;
+
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.navbarMenu {
+    width: auto;
+    height: 50px;
+
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.navbarMenuEntry{
+    width: auto;
+    height: auto;
+
+    padding: 0 15px;
+    position: relative;
+}
+
+.navbarMenuEntry a {
+    font: 'Rubik', sans-serif;
+    color: #3d3d3d;    
+}
+
+.navbarMenuEntry button {
+    all: unset;
+    font: 'Rubik', sans-serif;
+    color: #3d3d3d;
+    
+    cursor: pointer;
+}
+
+/* Index Main Menu */
+/* Body Section */
+.indexBodySection {
+    width: 100%;
+    min-height: calc(100vh - 100px);
+    position: relative;
+    float: left;
+
+    background-color: #b394e0;
+
+    display: flex;
+    justify-content: center;
+}
+
+.indexBodyMargin {
+    width: 95%;
+    min-height: 100%;
+    position: relative;
+    float: left;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boxContent {
+    width: 300px;
+    height: auto;
+    position: relative;
+    float: left;
+
+    background-color: #ffffff;
+
+    margin: 16px 0;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+/* Login */
+/* Login Section */
+.loginContent {
+    width: 300px;
+    height: auto;
+    position: relative;
+    float: left;
+
+    background-color: #ffffff;
+
+    margin: 16px 0;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+/* Form in General Section */
+.formTitle {
+    margin-top: 6px;
+}
+
+.formMargin {
+    margin-top: 6px;
+}
+
+.formButton {
+    width: auto;
+    height: auto;
+
+    position: relative;
+    float: left;
+
+    border: none;
+    border-radius: 6px;
+    padding: 6px 4px;
+
+    font-family: 'Rubik', sans-serif;
+    font-size: 16px;
+    
+    background-color: #e3e3e3;
+    transition: background-color 0.3s;
+
+    cursor: pointer;
+}
+
+.formButton:hover{
+    background-color: #c9c9c9;
+}
+
+/* User Menu Section */
+.indexBodyMarginColumn {
+    width: 95%;
+    min-height: 100%;
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.indexBodySegment {
+    width: 100%;
+    height: auto;
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.learnSection {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    float: left;
+
+    margin: 16px;
+    padding: 6px;
+    border-radius: 6px;
+
+    background-color: #94d5e0;
+    color: #ffffff;
+}
+
+.reviewSection {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    float: left;
+
+    margin: 16px 0;
+    padding: 6px;
+    border-radius: 6px;
+
+    background-color: #de3737;
+    color: #ffffff;  
+}
+
+/* Admin Section */
+.adminTitle {
+    width: 100%;
+    height: auto;
+    position: relative;
+    float: left;
+
+    margin-top: 6px;
+}
+
+.adminTitleSplit {
+    width: 100%;
+    height: auto;
+    position: relative;
+    float: left;
+
+    margin-top: 12px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminTitleMain {
+    width: auto;
+    height: 100%;
+
+    position: relative;
+    float: left;
+
+    display: flex;
+    align-items: center;
+}
+
+.adminTitleRightButton {
+    width: auto;
+    height: 100%;
+
+    position: relative;
+    float: right;
+}
+
+.adminContent {
+    width: 100%;
+    height: auto;
+    position: relative;
+    float: left;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.adminBoxContent {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    float: left;
+
+    background-color: #94d5e0;
+    margin: 16px 0px;
+    border-radius: 6px;
+
+    grid-column: span 1;
+}
+
+.adminContentRow {
+    width: 100%;
+    height: auto;
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.adminBoxContentRow {
+    width: 100%;
+    min-height: 100px;
+    position: relative;
+    float: left;
+
+    background-color: #ffffff;
+    margin: 16px 0px;
+    border-radius: 6px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.adminBoxContentRowSegment {
+    width: auto;
+    height: calc(100% - 24px);
+    position: relative;
+    float: left;
+
+    padding: 12px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.adminBoxContentRowSegmentButton {
+    width: auto;
+    height: calc(100% - 24px);
+    position: relative;
+    float: left;
+
+    padding: 12px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.adminBoxContentRowSegmentMargin {
+    width: auto;
+    height: 60%;
+    position: relative;
+    float: left;
+
+    margin-right: 12px;
+
+    display: flex;
+    align-items: center;
+}
+
+.adminBoxContentRowSegmentMarginNone {
+    width: auto;
+    height: 60%;
+    position: relative;
+    float: left;
+
+    margin-right: 12px;
+
+    display: flex;
+    align-items: center;
+}
+
+.adminBoxContentRowSegmentMargin::after {
+    border-right: 1px solid #3e3e3e;
+    border-radius: 6px;
+    content: '';
+    height: 100%;
+    position: absolute;
+    right: -6px;
+    top: 0;
+    z-index: 0;
+}
+
+.adminBoxContentRowSegmentMarginButton {
+    margin-right: 6px;
+}
+
+.adminFormContent {
+    width: 300px;
+    height: auto;
+    position: relative;
+    float: left;
+
+    background-color: #ffffff;
+
+    margin: 16px 0;
+    padding: 6px;
+    border-radius: 6px; 
+}
+
+/* Lesson Section */
+.lessonAreaSection {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    float: left;
+}
+
+.lessonWordSection {
+    min-width: 100%;
+    height: 300px;
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #b394e0;
+}
+
+.lessonWordSection h2 {
+    font-size: 72px;
+    color: #ffffff;
+}
+
+.lessonSeperatorSection {
+    min-width: 100%;
+    height: 80px;
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #e3e3e3;
+}
+
+.lessonSeperatorSection p {
+    font-size: 24px;
+}
+
+.lessonContentSection {
+    min-width: 100%;
+    min-height: calc(100vh - 480px);
+    position: relative;
+    float: left;
+
+    background-color: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lessonContentText {
+    width: 80%;
+    min-height: 100px;
+    height: auto;
+    position: relative;
+    float: left;
+
+    background-color: #e3e3e3;
+    border-radius: 6px;
+
+    margin-top: 6px;
+    padding: 6px;
+}
+
+.lessonContentText p {
+    font-size: 18px;
+}
+
+.lessonContentButton {
+    width: 80%;
+    height: auto;
+    position: relative;
+    float: left;
+
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.lessonFinishSection {
+    width: 100vw;
+    max-width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    position: absolute;
+    float: left;
+    top: 0;
+    left: 0;
+
+    background-color: rgba(93, 78, 96, 0.2);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s;
+}
+
+.lessonFinishSectionDisplay {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important; 
+}
+
+.lessonFinishModal {
+    width: 300px;
+    height: auto;
+
+    background-color: #ffffff;
+
+    margin: 16px 0;
+    padding: 6px;
+    border-radius: 6px;
+
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.lessonFinishModalText {
+    width: 100%;
+    height: auto;
+    position: relative;
+    float: left;
+}
+
+.lessonFinishModalButton {
+    width: 100%;
+    height: auto;
+    position: relative;
+    float: left;
+
+    display: flex;
+    justify-content: center;
+
+    margin-top: 6px;
+}
+
+.lessonFinishModalButtonMargin {
+    margin: 0 6px;
+}
+
+/* Review Section */
+.indexBodyMarginColumnFull {
+    min-width: 100%;
+    min-height: 100%;
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reviewAreaSection {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    float: left;
+}
+
+.reviewQuestionSection {
+    min-width: 100%;
+    height: 300px;
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #b394e0;
+}
+
+.reviewQuestionSection h2 {
+    font-size: 72px;
+    color: #ffffff;
+}
+
+.reviewInstructionSection {
+    min-width: 100%;
+    height: 80px;
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #e3e3e3;
+}
+
+.reviewInstructionSection p {
+    font-size: 24px;
+}
+
+.reviewAnswerSection {
+    min-width: 100%;
+    min-height: calc(100vh - 480px);
+    position: relative;
+    float: left;
+
+    background-color: #e3e3e3;
+}
+
+.reviewAnswerSection .reviewAnswerInput {
+    width: 100%;
+    height: 50px;
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.reviewAnswerInput .reviewInput {
+    width: calc(100vw - 123px);
+    height: 100%;
+    position: relative;
+    float: left;
+
+    border: none;
+
+    padding: 0px 16px;
+}
+
+.reviewAnswerInput .reviewButton {
+    width: 74px;
+    height: 100%;
+    position: relative;
+    float: left;
+
+    border: none;
+
+    font-family: 'Rubik', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    background-color: #ededed;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s;
+}
+
+.reviewAnswerInput .reviewButton:hover {
+    background-color: #c9c9c9;    
+}
+
+.reviewFinishSection {
+    width: 100vw;
+    max-width: 100%;
+    height: 100vh;
+    min-height: 490px;
+    position: absolute;
+    float: left;
+    top: 0;
+    left: 0;
+
+    background-color: rgba(93, 78, 96, 0.2);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s;
+}
+
+.reviewFinishSectionDisplay {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important; 
+}
+
+.reviewFinishModal {
+    width: 300px;
+    height: auto;
+
+    background-color: #ffffff;
+
+    margin: 16px 0;
+    padding: 6px;
+    border-radius: 6px;
+
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.reviewFinishModalText {
+    width: 100%;
+    height: auto;
+    position: relative;
+    float: left;
+}
+
+.reviewFinishModalButton {
+    width: 100%;
+    height: auto;
+    position: relative;
+    float: left;
+
+    display: flex;
+    justify-content: center;
+
+    margin-top: 6px;
+}
+
+/* Footer Section */
+.footerSection {
+    width: 100%;
+    height: 50px;
+    
+    position: relative;
+    float: left;
+    z-index: 10;
+
+    background: #ffffff;
+
+    border-top: 2px solid rgba(93, 78, 96, 0.4);
+    box-shadow: 0 -1px 10px 5px rgba(93, 78, 96, 0.2);
+}
+
+.footerMargin {
+    width: 95%;
+    height: 50px;
+    margin: auto;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.footerMarginContent {
+    width: auto;
+    height: auto;
+
+    position: relative;
+}

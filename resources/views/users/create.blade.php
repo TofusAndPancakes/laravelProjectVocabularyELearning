@@ -4,7 +4,7 @@
 <div class="indexBodySection">
     <div class="indexBodyMargin">
         <div class="adminFormContent">
-            <form method="POST" action="/Thesis-VocabularyWebApp/vocabwebapp/public/admin/user/store">
+            <form method="POST" action={{route('admin.user.store')}}>
                 @csrf
                 <h1>Create New User</h1>
                 <hr>

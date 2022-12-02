@@ -67,6 +67,8 @@ class VocabularyController extends Controller
             abort(403, 'Unauthorized Action');
         }
 
+        $level_id = $level->id;
+
         $vocabulary->delete();
 
         return redirect('/admin/level/'.$level_id.'/vocabulary')->with('message', 'Vocabulary Deleted Succesfully!');

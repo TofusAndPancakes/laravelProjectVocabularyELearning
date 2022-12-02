@@ -4,7 +4,7 @@
 <div class="indexBodySection">
     <div class="indexBodyMargin">
         <div class="loginContent">
-            <form method="POST" action="/Thesis-VocabularyWebApp/vocabwebapp/public/users/login">
+            <form method="POST" action={{route('login.authenticate')}}>
                 @csrf
                 <h1>Login</h1>
                 <hr>

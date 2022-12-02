@@ -11,7 +11,7 @@ use App\Http\Controllers\WebAppController;
 //Default Homepage
 Route::get('/', function () {
     return view('index');
-})->middleware('guest')->name('index');
+})->name('index');
 
 // -- Login in and Logging Out --
 //Login

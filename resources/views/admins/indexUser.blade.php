@@ -11,7 +11,7 @@
                 <div class="adminTitleButton">
                     <!-- Create New Level -->
                     <button class="formButton">
-                        <a href="/Thesis-VocabularyWebApp/vocabwebapp/public/admin/user/create">
+                        <a href={{route('admin.user.create')}}>
                             <p>Create New User</p>
                         </a>
                     </button>
@@ -28,11 +28,11 @@
                     </div>
                     <div class="adminBoxContentRowSegment">
                         <button class="formButton adminBoxContentRowSegmentMarginButton">
-                            <a href="/Thesis-VocabularyWebApp/vocabwebapp/public/admin/user/{{$user->id}}/edit">
+                            <a href={{route('admin.user.edit', ['user' => $user->id])}}>
                                 Edit
                             </a>
                         </button>
-                        <form method="POST" action="/Thesis-VocabularyWebApp/vocabwebapp/public/admin/user/{{$user->id}}/delete">
+                        <form method="POST" action={{route('admin.user.delete', ['user' => $user->id])}}>
                             @csrf
                             @method("DELETE")
                             <button class="formButton">

@@ -4,7 +4,7 @@
 <div class="indexBodySection">
     <div class="indexBodyMargin">
         <div class="adminFormContent">
-            <form method="POST" action="/Thesis-VocabularyWebApp/vocabwebapp/public/admin/level/{{$level->id}}/vocabulary/{{$vocabulary->id}}/update">
+            <form method="POST" action={{route('admin.vocabulary.update', ['level' => $level->id, 'vocabulary' => $vocabulary->id])}}>
                 @csrf
                 <h1>Edit Vocabulary</h1>
                 <hr>

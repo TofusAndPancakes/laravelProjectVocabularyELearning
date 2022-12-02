@@ -4,7 +4,7 @@
 <div class="indexBodySection">
     <div class="indexBodyMargin">
         <div class="adminFormContent">
-            <form method="POST" action="/Thesis-VocabularyWebApp/vocabwebapp/public/admin/user/{{$user->id}}/update">
+            <form method="POST" action={{route('admin.user.update', ['user' => $user->id])}}>
                 @csrf
                 <h1>Edit User</h1>
                 <hr>

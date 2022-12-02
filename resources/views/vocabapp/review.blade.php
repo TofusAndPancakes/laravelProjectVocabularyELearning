@@ -196,7 +196,7 @@ for (var i = 0; i < reviewRecordList.length; i++) {
             <p>Please press [Submit Result] bellow to continue!</p>
         </div>
         <div class="reviewFinishModalButton">
-            <form method="POST" action="/Thesis-VocabularyWebApp/vocabwebapp/public/review/result">
+            <form method="POST" action={{route('review.result')}}>
                 @csrf
                 <div class="form">
                     <input type="hidden" id="reviewRecordListArray" name="reviewRecordListArray" value="">

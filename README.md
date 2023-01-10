@@ -22,7 +22,7 @@ Review session is created to help users recall the words they have learned from 
 
 Words are continuously added to the Review Session Pool. As of right now, you cannot remove words you have learnt from Lesson session from the pool.
 ![](public/readmeImages/readmeImage_reviewSession.png)
-## For Admins
+### For Admins
 Admins have the ability to create new users and set their user administration rights.
 ![](public/readmeImages/readmeImage_adminUser.png)
 Admins must divide the words they teach into levels. Each level will contain their Indonesian and English word pairs. This is to pace the user’s studies and avoid overwhelming them.

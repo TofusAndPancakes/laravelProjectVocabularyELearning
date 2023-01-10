@@ -9,6 +9,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;500&display=swap" rel="stylesheet">
 
+        <!-- Bootstrap, without JS because only use for Tables, copied in-case version updates cause issues-->
+        <link rel="stylesheet" href="{{asset('style/bootstrap.css')}}">
+
         <link rel="stylesheet" href="{{asset('style/style.css')}}">
         @auth
         <script>

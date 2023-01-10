@@ -16,7 +16,7 @@
                     @enderror
                 </div>
 
-                <div class="formTitle"><h3>L2 - Native Language, English</h3></div>
+                <div class="formTitle"><h3>L1 - Native Language, English</h3></div>
                 <div class="form">
                     <input type="language2" name="language2" value="{{$vocabulary->language2}}"/>
                     @error('language2')

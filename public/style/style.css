@@ -101,7 +101,7 @@ body {
 /* Body Section */
 .indexBodySection {
     width: 100%;
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 115px);
     position: relative;
     float: left;
 
@@ -318,6 +318,8 @@ body {
 
     background-color: #ffffff;
     margin: 16px 0px;
+    padding: 6px;
+
     border-radius: 6px;
 
     display: flex;
@@ -390,6 +392,7 @@ body {
 
 .adminBoxContentRowSegmentMarginButton {
     margin-right: 6px;
+    margin-bottom: 6px;
 }
 
 .adminFormContent {
@@ -452,7 +455,7 @@ body {
 
 .lessonContentSection {
     min-width: 100%;
-    min-height: calc(100vh - 500px);
+    min-height: calc(100vh - 495px);
     position: relative;
     float: left;
 
@@ -692,7 +695,7 @@ body {
 }
 
 .reviewAnswerInput .reviewButton {
-    width: 90px;
+    width: 123px;
     height: 100%;
     position: relative;
     float: left;
@@ -829,7 +832,7 @@ body {
 
 .reviewQuickAccessSection {
     min-width: 100%;
-    min-height: calc(100vh - 550px);
+    min-height: calc(100vh - 545px);
     position: relative;
     float: left;
 
@@ -966,7 +969,7 @@ body {
 }
 
 .tutorialBoxClose img {
-    width: 20px;
+    width: 28px;
     height: auto;
     position: relative;
 
@@ -1060,4 +1063,24 @@ body {
 
 .tutorialBoxModalButtonMargin {
     margin: 0 6px;
+}
+
+/* Bootstrap Reset */
+.table {
+    margin-bottom: 0px;
+}
+
+hr {
+    margin: 0px;
+}
+
+form input {
+    width: 100%;
+}
+
+/* Admin, Smaller Screen Reduces Information Shown */
+@media (max-width: 625px) {
+.adminTableRowDisplayNone {
+    display: none;
+}
 }

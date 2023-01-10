@@ -21,39 +21,45 @@
 
         <div class="adminContentRow">
             @unless(count($vocabularies) == 0)
-            @foreach($vocabularies as $vocabulary)
             <div class="adminBoxContentRow">
-                <div class="adminBoxContentRowSegment">
-                    <div class="adminBoxContentRowSegmentMargin">
-                        <p>{{$vocabulary->language1}}</p>
-                    </div>
-                    <div class="adminBoxContentRowSegmentMargin">
-                        <p>{{$vocabulary->language2}}</p>
-                    </div>
-                    <div class="adminBoxContentRowSegmentMargin">
-                        <p>{{$vocabulary->mnemonics}}</p>
-                    </div>
-                    <div class="adminBoxContentRowSegmentMarginNone">
-                        <p>{{$vocabulary->semanticlist}}</p>
-                    </div>
-                </div>
-                <div class="adminBoxContentRowSegment">
-                    <button class="formButton adminBoxContentRowSegmentMarginButton">
-                        <a href={{route('admin.vocabulary.edit', ['level' => $level->id, 'vocabulary' => $vocabulary->id])}}>
-                            Edit
-                        </a>
-                    </button>
-                    <form method="POST" action={{route('admin.vocabulary.delete', ['level' => $level->id, 'vocabulary' => $vocabulary->id])}}>
-                        @csrf
-                        @method("DELETE")
-                        <button class="formButton">
-                            <p>Delete</p>
-                        </button>
-                    </form>
-                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">L2 - Studied Language</th>
+                        <th scope="col" class="adminTableRowDisplayNone">L1 - Native Language</th>
+                        <th scope="col" class="adminTableRowDisplayNone">Mnemonics</th>
+                        <th scope="col" class="adminTableRowDisplayNone">Semantic List</th>
+                        <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($vocabularies as $vocabulary)
+                        <tr>
+                        <th scope="row">{{$loop->iteration}}</th>
+                        <td>{{$vocabulary->language1}}</td>
+                        <td class="adminTableRowDisplayNone">{{$vocabulary->language2}}</td>
+                        <td class="adminTableRowDisplayNone">{{$vocabulary->mnemonics}}</td>
+                        <td class="adminTableRowDisplayNone">{{$vocabulary->semanticlist}}</td>
+                        <td>
+                            <button class="formButton adminBoxContentRowSegmentMarginButton">
+                                <a href={{route('admin.vocabulary.edit', ['level' => $level->id, 'vocabulary' => $vocabulary->id])}}>
+                                    Edit
+                                </a>
+                            </button>
+                            <form method="POST" action={{route('admin.vocabulary.delete', ['level' => $level->id, 'vocabulary' => $vocabulary->id])}}>
+                                @csrf
+                                @method("DELETE")
+                                <button class="formButton">
+                                    <p>Delete</p>
+                                </button>
+                            </form>
+                        </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
-            @endforeach
-
             @else
             <div class="adminBoxContentRow">
                 <div class="adminBoxContentRowSegment">

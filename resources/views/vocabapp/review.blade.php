@@ -166,13 +166,46 @@ for (var i = 0; i < reviewRecordList.length; i++) {
         opacity: 1 !important;
     }
 
+    .reviewQuickAccessDrop {
+        height: auto !important;
+        min-height: 30px !important;
+    }
+
+    .displayQuickAccessStyle {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .displayTutorialStyle {
+      visibility: visible !important;
+      opacity: 1 !important;
+      display: flex;
+    }
+
 </style>
 <div class="indexBodySection">
     <div class="indexBodyMarginColumnFull">
         <!-- Review Area -->
         <div id="reviewArea" class="reviewAreaSection">
             <div class="reviewQuestionSection">
+                <div class="reviewAreaProgress">
+                    <div class="reviewAreaProgressBar" id="progressBar">
+                        &nbsp;
+                    </div>
+                    <p id="progressBarText">Progress</p>
+                </div>
+
                 <h2 id="questionArea"></h2>
+
+                <div class="reviewAreaCorrection" id="reviewAreaCorrection">
+                    <div class="reviewAreaCorrectionBox" id="reviewAreaCorrectionBox">
+                        <p id="reviewAreaCorrectionText">Correct</p>
+                    </div>
+                    <div class="reviewAreaCorrectionNote">
+                        <p>Click [Submit] to Continue</p>
+                    </div>
+                </div>
             </div>
             <div class="reviewInstructionSection">
                 <p>Answer</p>
@@ -180,10 +213,18 @@ for (var i = 0; i < reviewRecordList.length; i++) {
             </div>
             <form class="reviewAnswerSection" id="myForm">
                 <div class="reviewAnswerInput">
-                    <input class="reviewInput" id="answer" name="answer" value="">
+                    <input class="reviewInput" id="answer" name="answer" value="" placeholder="Type Answer Here!">
                     <button class="reviewButton" type="submit"><p>Submit</p></button>
                 </div>
             </form>
+            <div class="reviewQuickAccessSection" id="reviewQuickAccessSection">
+                <div class="reviewQuickAccess" id="reviewQuickAccess" onclick="revealQuickAccess()">
+                    <p>Reveal Details</p>
+                </div>
+                <div class="reviewQuickAccessDropdown" id="reviewQuickAccessDropdown">
+                    <p id="reviewQuickAccessText">Details of Mnemonics and Semantic Mapping are shown here!</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -193,7 +234,7 @@ for (var i = 0; i < reviewRecordList.length; i++) {
         <div class="reviewFinishModalText">
             <h1>Review Complete!</h1>
             <hr>
-            <p>Please press [Submit Result] bellow to continue!</p>
+            <p>Please click [Submit Result] bellow to continue!</p>
         </div>
         <div class="reviewFinishModalButton">
             <form method="POST" action={{route('review.result')}}>
@@ -209,8 +250,118 @@ for (var i = 0; i < reviewRecordList.length; i++) {
     </div>  
 </div>
 
-<script>
 
+<!-- Review Tutorial -->
+<div class="tutorialBoxModalSection" id="modalArea">
+    <div class="tutorialBoxWideModal">
+        <div class="tutorialBoxModalText">
+        <h1>Review Tutorial</h1>
+        <hr>
+        <p>Welcome to a Review Session. In a Review Session, you will be shown Indonesian or English words. Your goal is to answer Indonesian with it's English counterpart
+            and answer English with it's Indonesian counterpart.</p>
+        <br>
+        <p>Type your answer in the [Input] provided and once your are confident, press [Enter] or click [Submit] to check the answer. Aim to get all of the correct first try,
+            if you got it wrong, there are no penalties! If you have difficulties, you can click [Reveal Details] to see the Mnemonic or Semantic Mapping again.</p>
+        <br>
+        <p>Each Review session has 5 words you will recall. Once you have answered them all, follow the instructions on the pop up to [Submit Result]. 
+            You will be redirected to [Main Menu] and you can start another Review Session.</p> 
+        <br>
+        </div>
+
+        <div class="tutorialBoxModalButton">
+        <button class="formButton tutorialBoxModalButtonMargin" onclick='tutorialBoxToggle()'>Ok!</button>
+        </div>
+    </div>
+</div>
+
+<script>
+//Tutorial
+const tutorial = document.getElementById('modalArea');
+const tutorialClass = tutorial.classList;
+
+function tutorialBoxToggle(){
+    tutorialClass.toggle('displayTutorialStyle');
+}
+
+//Check if Tutorial is Enabled?
+if (localStorage.getItem('vocabAppTutorial') == 0){
+    tutorialBoxToggle(); 
+}
+
+//Progress Bar
+const progressBar = document.getElementById('progressBar');
+const progressBarText = document.getElementById('progressBarText');
+
+var reviewCompletionProgress = 0;
+
+//Updates the Bar on top of the Review, takes the reviewCounter Variable used at the start!
+function progressBarUpdate(){
+    //Update the Text
+    progressBarText.textContent = reviewCompletionProgress + "/" + reviewCounter + " Progress" ;
+
+    //Update the Visual
+    var progressBarCalculation = (reviewCompletionProgress/reviewCounter)*100;
+    progressBar.style.width = progressBarCalculation + "vw";
+}
+
+//Correction Result
+const reviewAreaCorrection = document.getElementById('reviewAreaCorrection');
+const reviewAreaCorrectionClass = reviewAreaCorrection.classList;
+
+const reviewAreaCorrectionBox = document.getElementById('reviewAreaCorrectionBox');
+const reviewAreaCorrectionText = document.getElementById('reviewAreaCorrectionText');
+
+function reviewAreaCorrect(){
+    reviewAreaCorrectionText.textContent = "CORRECT";
+    reviewAreaCorrectionBox.style.backgroundColor = "#77f78e";
+    reviewAreaCorrectionClass.toggle('displayStyle');
+}
+
+function reviewAreaIncorrect(){
+    reviewAreaCorrectionText.textContent = "INCORRECT";
+    reviewAreaCorrectionBox.style.backgroundColor = "#de3737";
+    reviewAreaCorrectionClass.toggle('displayStyle');
+}
+
+function reviewAreaCorrectionReset(){
+    reviewAreaCorrectionClass.toggle('displayStyle');
+}
+
+//Quick Access
+const reviewQuickAccessSection = document.getElementById('reviewQuickAccessSection');
+
+const reviewQuickAccess = document.getElementById('reviewQuickAccess');
+const reviewQuickAccessClass = reviewQuickAccess.classList;
+
+const reviewQuickAccessDropdown = document.getElementById('reviewQuickAccessDropdown');
+const reviewQuickAccessDropdownClass = reviewQuickAccessDropdown.classList;
+
+const reviewQuickAccessText = document.getElementById('reviewQuickAccessText');
+
+//Quick Access state, if it's 1 then it is currently shown, if it's 0 then it is not shown.
+var reviewQuickAccessState = 0;
+
+function revealQuickAccess(){
+    reviewQuickAccessDropdownClass.toggle('reviewQuickAccessDrop');
+    if (reviewQuickAccessState == 0){
+        reviewQuickAccessState = 1;
+    } else {
+        reviewQuickAccessState = 0;
+    }
+}
+
+function revealQuickAccessReset(){
+    if (reviewQuickAccessState == 1){
+        reviewQuickAccessDropdownClass.toggle('reviewQuickAccessDrop');
+        reviewQuickAccessState = 0;
+    }
+}
+
+function revealQuickAccessReveal(){
+    reviewQuickAccessClass.toggle('displayQuickAccessStyle');
+}
+
+//Tutorial 
 /*
 //Temporary Debugging
 var reviewRecordResult = JSON.stringify(reviewRecordList);
@@ -234,7 +385,10 @@ var review_current = 0;
 //User Reviewing (After Correct Set or After wrong Answer)
 var review_pause_state = 0;
 
-function nextEntry (){
+function nextEntry() {
+//Reveal Details Addon
+reviewQuickAccessText.textContent = newReviewList[review_current]['mnemoniclist'];
+
 //console.log("Test Type being checked  " + newReviewList[review_current]['test_type'] + " Review Current " + review_current);
 if (newReviewList[review_current]['test_type'] == 1){
     //console.log(newReviewList[review_current]['language1']);
@@ -327,7 +481,11 @@ function getData(form) {
             }
             
             review_pause_state = 1;
-            resultArea.textContent = "CORRECT";
+            reviewAreaCorrect();
+            reviewCompletionProgress++;
+            progressBarUpdate();
+            revealQuickAccessReveal()
+
         }
 
     } else {
@@ -347,7 +505,8 @@ function getData(form) {
 
         //Initiated Failed Pause State
         review_pause_state = 2;
-        resultArea.textContent = "INCORRECT";
+        reviewAreaIncorrect();
+        revealQuickAccessReveal()
 
     }
 
@@ -421,6 +580,9 @@ document.getElementById("myForm").addEventListener("submit", function (event) {
     if (review_pause_state > 0){
         //Enter custom code!
         //console.log("getCorrect() Triggered");
+        reviewAreaCorrectionReset();
+        revealQuickAccessReset()
+        revealQuickAccessReveal();
         getCorrect(event.target);
         } else {
         //Else if it is not in pause mode, then it's next entry time.
@@ -430,6 +592,7 @@ document.getElementById("myForm").addEventListener("submit", function (event) {
 });
 
 nextEntry();
+progressBarUpdate();
 
 </script>
 @endsection

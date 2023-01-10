@@ -12,10 +12,9 @@
             <div class="boxContent">
                 <h1>Welcome to the Language App</h1>
                 <hr>
-                <p>Please login through the navigation bar to the top right of the website. Good luck!</p>
+                <p>If you have received the login details from the owner, please enter the [Login] page through the navigation bar on the top.</p>
             </div>
         </div>
-
     </div>
 </div>
 

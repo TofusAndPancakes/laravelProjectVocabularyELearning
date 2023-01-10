@@ -10,6 +10,19 @@
         <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;500&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="{{asset('style/style.css')}}">
+        @auth
+        <script>
+        //Script will Only Run when Auth, hopefully!
+    
+        //Tutorial Local Storage Check, if user cleared the Tutorial Setting or first time entering..
+        if (!localStorage.getItem('vocabAppTutorial')){
+            localStorage.setItem('vocabAppTutorial', '0');
+            localStorage.setItem('vocabAppTutorialFooterInfo', '0');
+            footerTutorial.textContent = "Disable Tutorial";
+        }
+        </script>
+        @endauth
+
     </head>
     <body>
     
@@ -68,9 +81,49 @@
 
     <div class="footerSection">
         <div class="footerMargin">
-            <p>Server-Side Web Development Module - Inspired by Wanikani, Special Thanks to Dimitri - 2022</p>
+            <div class="footerEntryButton">
+                @auth
+                <p id="footerTutorial" onclick="footerTutorialToggle()">Toggle Tutorial</p>
+                @else
+                <!-- Nothing -->
+                @endauth
+            </div>
+            <div class="footerEntry">
+                <p>Server-Side Web Development Module - Inspired by Wanikani, Special Thanks to Dimitri - 2022</p>
+            </div>
         </div>
+        
     </div>
+
+    @auth
+    <script>
+    const footerTutorial = document.getElementById('footerTutorial');
+
+    //Just to Adjust Tutorial Setting Properly Everyload...
+    if (localStorage.getItem('vocabAppTutorial') == 1){
+        footerTutorial.textContent = "Enable Tutorial";
+    } else {
+        footerTutorial.textContent = "Disable Tutorial";
+    }
+
+    //Turn off Tutorial
+    function footerTutorialToggle(){
+        //For the Big Modal
+        if (localStorage.getItem('vocabAppTutorial') == 0){
+            //If Tutorial is ON, we turn it OFF
+            localStorage.setItem('vocabAppTutorial', '1');
+            localStorage.setItem('vocabAppTutorialFooterInfo', '1');
+            footerTutorial.textContent = "Enable Tutorial";
+        } else {
+            //If Tutorial is OFF, we turn it ON
+            localStorage.setItem('vocabAppTutorial', '0');
+            localStorage.setItem('vocabAppTutorialFooterInfo', '0');
+            footerTutorial.textContent = "Disable Tutorial";
+        }
+    }
+
+    </script>
+    @endauth
         
     </body>
 </html>

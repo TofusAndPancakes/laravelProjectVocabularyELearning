@@ -17,13 +17,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('level_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('semantic_id')->nullable()->constrained()->onDelete('cascade');
 
             $table->string('language1');
             $table->string('language2');
 
             $table->string('mnemonics');
             $table->string('mnemoniclist')->nullable();
-            $table->string('semanticlist');
+            $table->string('semanticlist')->nullable();
 
             $table->integer('attempts_lang1')->default(0);
             $table->integer('success_lang1')->default(0);

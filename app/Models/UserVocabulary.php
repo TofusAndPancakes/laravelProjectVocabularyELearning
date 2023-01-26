@@ -12,7 +12,7 @@ class UserVocabulary extends Model
     protected $table = 'uservocabularies';
 
     protected $fillable = [
-        'user_id', 'level_id', 'language1', 'language2', 'mnemonics', 'mnemoniclist', 'semanticlist',
+        'user_id', 'level_id', 'semantic_id', 'language1', 'language2', 'mnemonics', 'mnemoniclist', 'semanticlist',
         'attempt_lang1', 'success_lang1', 'attempt_lang2', 'sucess_lang2', 'memorizationLevel', 'nextReview',
     ];
 

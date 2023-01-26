@@ -1084,3 +1084,198 @@ form input {
     display: none;
 }
 }
+
+/* Semantic Mapping */
+.indexBodyMarginRowFull {
+    min-width: 100%;
+    min-height: 100%;
+    position: relative;
+    float: left;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.semanticVocabList {
+    width: 200px;
+    height: 100%;
+    position: relative;
+    float: left;
+
+    background-color: #ffffff;
+}
+
+.semanticVocabListTitle {
+    width: 100%;
+    height: auto;
+    position: relative;
+    float: left;
+
+    background-color: #e3e3e3;
+
+    /* Because of Semantic Progress Bar */
+    padding: 0px 10px;
+    padding-top: 32px;
+}
+
+.semanticVocabListContent {
+    width: Calc(100% - 10px);
+    height: auto;
+    position: relative;
+    float: left;
+
+    background-color: #e3e3e3;
+    border-radius: 6px;
+
+    margin: 5px;
+    padding: 5px;
+}
+
+.semanticVocabLang {
+    font-size: 10px;
+}
+
+.semanticMappingArea {
+    width: Calc(100vw - 200px);
+    height: 100%;
+    position: relative;
+    float: left;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.semanticMappingCenter {
+    width: Calc(200px - 20px);
+    height: auto;
+    min-height: 40px;
+    position: relative;
+    float: left;
+
+    background-color: #ffffff;
+    border-radius: 5px;
+
+    color: #3d3d3d;
+
+    padding: 30px 10px;
+
+    text-align: center;
+}
+
+.semanticMappingCenterSubtitle {
+    font-size: 12px;
+}
+
+.semanticShowClues {
+    width: auto;
+    height: auto;
+    position: absolute;
+
+    top: 38px;
+    right: 8px;
+}
+
+.semanticStartReview {
+    width: auto;
+    height: auto;
+    position: absolute;
+
+    top: 80px;
+    right: 8px;
+
+    display: none;
+}
+
+.semanticMappingNodes {
+    width: 180px;
+    height: auto;
+    min-height: 40px;
+    float: left;
+
+    background-color: #ffffff;
+    border-radius: 5px;
+
+    position: absolute;
+
+    color: #3d3d3d;
+
+    display: none;
+}
+
+.semanticMappingNodes hr {
+    margin: 0px 10px;
+}
+
+.semanticMappingNodesInput {
+    width: 100%;
+    height: 30px;
+
+    margin-top: 5px;
+    text-align: center;
+}
+
+.semanticMappingNodes .semanticButton {
+    width: 100%;
+    height: auto;
+    position: relative;
+    float: left;
+
+    border: none;
+
+    font-family: 'Rubik', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    background-color: #ededed;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s;
+
+    border-radius: 0px 0px 6px 6px;
+}
+
+.semanticMappingNodes .semanticButton:hover {
+    background-color: #c9c9c9;
+}
+
+.semanticMappingClues {
+    width: Calc(100% - 10px);
+    height: auto;
+    position: relative;
+    float: left;
+
+    background-color: #e3e3e3;
+    border-radius: 6px;
+
+    margin: 5px;
+    padding: 5px;
+
+    display: none;
+}
+
+.semanticMappingClues p {
+    font-size: 12px;
+}
+
+.semanticMappingReviewCorrectionBox {
+    width: 100%;
+    /*Take note of compatibility issues*/
+    min-width: 100px;
+    height: auto;
+    position: absolute;
+    float: left;
+
+    bottom: -38px;
+
+    padding: 6px;
+    border-radius: 6px;
+
+    background-color: #77f78e;
+    color: #ffffff;
+
+    display: none;
+}

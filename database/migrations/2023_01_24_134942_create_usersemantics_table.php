@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vocabularies', function (Blueprint $table) {
+        Schema::create('usersemantics', function (Blueprint $table) {
             $table->id();
             $table->foreignId('level_id')->constrained()->onDelete('cascade');
-            $table->string('language1');
-            $table->string('language2');
-            $table->string('mnemonics');
-            $table->string('mnemoniclist')->nullable();
-            $table->string('semanticlist')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('semantic_id')->constrained()->onDelete('cascade');
+
+            $table->integer('completion')->default(0);
+
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vocabularies');
+        Schema::dropIfExists('usersemantics');
     }
 };

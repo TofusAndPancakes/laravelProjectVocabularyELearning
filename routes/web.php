@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\VocabularyController;
+use App\Http\Controllers\SemanticController;
 use App\Http\Controllers\WebAppController;
 
 //Default Homepage
@@ -27,6 +28,10 @@ Route::get('/menu', [WebAppController::class, 'index'])->middleware('auth')->nam
 //Lesson
 Route::get('/lesson', [WebAppController::class, 'lesson'])->middleware('auth')->name('lesson');
 Route::post('/lesson/result', [WebAppController::class, 'resultLesson'])->middleware('auth')->name('lesson.result');
+
+//Semantic
+Route::get('/semantic', [WebAppController::class, 'semantic'])->middleware('auth')->name('semantic');
+Route::post('/semantic/result', [WebAppController::class, 'resultSemantic'])->middleware('auth')->name('semantic.result');
 
 //Review
 Route::get('/review', [WebAppController::class, 'review'])->middleware('auth')->name('review');
@@ -73,3 +78,13 @@ Route::post('/admin/user/{user}/update', [UserController::class, 'update'])->mid
 //Delete Users
 Route::delete('/admin/user/{user}/delete', [UserController::class, 'delete'])->middleware('auth')->middleware('isAdmin')->name('admin.user.delete');
 
+//Create New Semantic
+Route::get('/admin/level/{level}/semantic/create', [SemanticController::class, 'create'])->middleware('auth')->middleware('isAdmin')->name('admin.semantic.create');
+Route::post('/admin/level/{level}/semantic/store', [SemanticController::class, 'store'])->middleware('auth')->middleware('isAdmin')->name('admin.semantic.store');
+
+//Update Semantic
+Route::get('/admin/level/{level}/semantic/{semantic}/edit', [SemanticController::class, 'edit'])->middleware('auth')->middleware('isAdmin')->name('admin.semantic.edit');
+Route::post('/admin/level/{level}/semantic/{semantic}/update', [SemanticController::class, 'update'])->middleware('auth')->middleware('isAdmin')->name('admin.semantic.update');
+
+//Delete Semantic
+Route::delete('admin/level/{level}/semantic/{semantic}/delete', [SemanticController::class, 'delete'])->middleware('auth')->middleware('isAdmin')->name('admin.semantic.delete');;

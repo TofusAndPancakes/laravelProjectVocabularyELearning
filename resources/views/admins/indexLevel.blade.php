@@ -36,7 +36,7 @@
                         <td>
                             <button class="formButton adminBoxContentRowSegmentMarginButton">
                                 <a href={{route('admin.vocabulary', ['level' => $level->id])}}>
-                                    Add or Update Vocabularies
+                                    Add or Update Vocabularies and Semantics
                                 </a>
                             </button>
                             <button class="formButton adminBoxContentRowSegmentMarginButton">

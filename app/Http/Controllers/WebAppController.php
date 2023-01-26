@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Level;
 use App\Models\UserLevel;
 use App\Models\Vocabulary;
+use App\Models\Semantic;
 use App\Models\UserVocabulary;
+use App\Models\UserSemantic;
+use App\Models\User;
 use Carbon\Carbon;
 
 class WebAppController extends Controller
@@ -18,25 +22,53 @@ class WebAppController extends Controller
         $userLevel = UserLevel::where('user_id', auth()->id())->first();
         $level = Level::where('leveltitle', $userLevel->currentlevel)->first();
 
-        //Check for New Lessons
-        if ($level != null){
-           
-            if ($userLevel->currentlevelimport == 0){
-                //User hasnt imported
-                //Search in Vocabulary Table How Much!
-                $newLessons = Vocabulary::where('level_id', $level->id)->count();
+        //If User is in Group 2 (Semantic)
+        if (Auth::user()->group == 2){
+            //Check for New Semantic Lessons
+            //Check for New Lessons
+            if ($level != null){
+            
+                if ($userLevel->currentlevelimport == 0){
+                    //User hasnt imported
+                    //Search in Vocabulary Table How Much!
+                    $newLessons = Semantic::where('level_id', $level->id)->count();
+                } else {
+                    //User has imported
+                    //Note that memorizationLevel = 0 means no learning has been completed yet...
+                    $newLessons = UserSemantic::where('level_id', $level->id)
+                                                            ->where('user_id', auth()->id())
+                                                            ->where('completion', 0)->count();
+                }    
             } else {
-                //User has imported
-                //Note that memorizationLevel = 0 means no learning has been completed yet...
-                $newLessons = UserVocabulary::where('level_id', $level->id)
-                                                        ->where('user_id', auth()->id())
-                                                        ->where('memorizationLevel', 'basic0')->count();
-            }    
+                //dd("no dice!");
+                //There is no next level!
+                $newLessons = null;
+            }
+
         } else {
-            //dd("no dice!");
-            //There is no next level!
-            $newLessons = null;
+        //Else, they default to Group 1 (Mnemonics)
+            //Check for New Lessons
+            if ($level != null){
+            
+                if ($userLevel->currentlevelimport == 0){
+                    //User hasnt imported
+                    //Search in Vocabulary Table How Much!
+                    $newLessons = Vocabulary::where('level_id', $level->id)->count();
+                } else {
+                    //User has imported
+                    //Note that memorizationLevel = 0 means no learning has been completed yet...
+                    $newLessons = UserVocabulary::where('level_id', $level->id)
+                                                            ->where('user_id', auth()->id())
+                                                            ->where('memorizationLevel', 'basic0')->count();
+                }    
+            } else {
+                //dd("no dice!");
+                //There is no next level!
+                $newLessons = null;
+            }
         }
+
+       
         
         //Check for Available Lessons! <> is equivalent !=
         $newReviews = UserVocabulary:: where('user_id', auth()->id())
@@ -48,6 +80,7 @@ class WebAppController extends Controller
         return view('vocabapp.indexUser', [
             'newLessons' => $newLessons,
             'newReviews' => $newReviews,
+            'userLevel' => Auth::user()->group,
         ]);
     }
 
@@ -92,6 +125,121 @@ class WebAppController extends Controller
                                         ->oldest('updated_at')->take(5)->get();
 
         return view('vocabapp.lesson', [
+            'newLessons' => $newLessons,
+        ]);
+    }
+
+    public function semantic(){
+        //Check for If Levels Have been Downloaded
+        $userLevel = UserLevel::where('user_id', auth()->id())->first();
+        $level = Level::where('leveltitle', $userLevel->currentlevel)->first();
+
+        //Import all of them in!
+        if ($userLevel->currentlevelimport == 0){
+            $newLessons = Semantic::where('level_id', $level->id)->get();
+            //Count How Much is there!
+            $newLessonsCount = $newLessons->count();
+
+            foreach($newLessons as $newLesson){
+                //Split the Array! Not sure why but the last index will give blank.
+                $semanticL1Split = preg_split("/\s*(?:,|$)\s*/", $newLesson->semanticlanguage1);
+                $semanticL2Split = preg_split("/\s*(?:,|$)\s*/", $newLesson->semanticlanguage2);
+
+                //Create User Semantic!
+                $formFields['user_id'] = auth()->id();
+                $formFields['level_id'] = $level->id;
+                $formFields['semantic_id'] = $newLesson->id;
+
+                //NextReview temporarily zero...
+                UserSemantic::create($formFields);
+
+                $counter = 0;
+                $nextTitle = 0;
+                $nextSegment = 0;
+
+                //Temporarily Storing the Semantic List Title
+                $semanticTitle;
+                $semanticSegment;
+
+                foreach($semanticL1Split as $semanticL1){
+
+                    if ($nextTitle == 1){
+                        //The Next Entry is SemanticTitle
+                        $semanticTitle = $semanticL1;
+                        $nextTitle = 0;
+                        $counter++;
+                    } else if ($nextSegment == 1){
+                        //The Next Entry is SemanticSegment
+                        $semanticSegment = $semanticL1;
+                        $nextSegment = 0;
+                        $counter++;
+                    } else if ($semanticL1 == "SemanticTitle"){
+                        //The ENtry is SemanticTitle
+                        $nextTitle = 1;
+                        $counter++;
+                        continue;
+                    } else if ($semanticL1 == "SemanticSegment"){
+                        //The Entry is SematicSegment
+                        $nextSegment = 1;
+                        $counter++;
+                        continue;
+                    } else if ($semanticL1 == "Seperator"){
+                        //If it is Seperator, Just Skip!
+                        $counter++;
+                        continue;
+                    } else if ($semanticL1 == "") {
+                        //If it is Empty, just continue...
+                        $counter++;
+                        continue;
+                    } else {
+                    //This means that this is an entry!
+                    //Make User Vocabulary
+                    $formFields['user_id'] = auth()->id();
+                    $formFields['level_id'] = $level->id;
+                    $formFields['semantic_id'] = $newLesson->id;
+                    $formFields['language1'] = $semanticL1;
+                    $formFields['language2'] = $semanticL2Split[$counter];
+                    $formFields['mnemonics'] = "Semantic Lesson";
+                    $formFields['mnemoniclist'] = "Semantic Lesson";
+                    $formFields['semanticlist'] = $semanticTitle . " - " . $semanticSegment . " - " . $semanticL1;
+                    $formFields['nextReview'] = Carbon::now()->timestamp;
+
+                    //NextReview temporarily zero...
+                    UserVocabulary::create($formFields);
+                    $counter++;
+                    }
+                }
+
+            }
+        
+            //Dont Forget to Set CurrentLevelImport to 1!
+            UserLevel::where('user_id', auth()->id())->first()->update([
+                'currentlevelimport' => 1,
+            ]);
+            
+        }
+
+        //What to Complete!
+        $newSemantic = UserSemantic::where('user_id', auth()->id())
+                                        ->where('level_id', $level->id)
+                                        ->where('completion', 0)
+                                        ->oldest('updated_at')->first();
+
+        //The Semantic Table Data
+        $semanticData = Semantic::where('id', $newSemantic->semantic_id)->first();
+
+        //Review Contents for Later!
+        $newLessons = UserVocabulary::where('user_id', auth()->id())
+                                        ->where('level_id', $level->id)
+                                        ->where('semantic_id', $newSemantic->semantic_id)
+                                        ->where('memorizationLevel', 'basic0')
+                                        ->oldest('updated_at')->get();
+
+        //dd($newLessons);
+
+        return view('vocabapp.semantic', [
+            'newSemantic' => $newSemantic,
+            'semanticData' => $semanticData,
             'newLessons' => $newLessons,
         ]);
     }
@@ -278,7 +426,76 @@ class WebAppController extends Controller
             }
 
             $idValidation->save();
+
+            
         }
+
+        return redirect('/menu');
+    }
+
+    public function resultSemantic(Request $request){
+        
+        //Testing Version!
+        $reviewSetting = array([
+            "basic0"  => array("nextLevel" => "basic1", "nextReview" => 1, 'nextLevelReview' =>1,),
+            "basic1"  => array("nextLevel" => "basic2", "nextReview" => 1,'nextLevelReview' =>1,),
+            "basic2"  => array("nextLevel" => "basic3", "nextReview" => 1,'nextLevelReview' =>1,),
+            "basic3"  => array("nextLevel" => "basic4", "nextReview" => 1,'nextLevelReview' =>1,),
+            "basic4"  => array("nextLevel" => "basic5", "nextReview" => 1,'nextLevelReview' =>1,),
+            "basic5"  => array("nextLevel" => "intermediate1", "nextReview" => 1,'nextLevelReview' =>1,),
+            "intermediate1"  => array("nextLevel" => "max", "nextReview" => 1,'nextLevelReview' =>1,),
+        ]);
+
+        $reviewRecordBreak = json_decode($request->reviewRecordListArray, true);
+        
+        //Validation
+        $validator = Validator::make($reviewRecordBreak, [
+            '*.entry_id' => 'required|integer',
+            '*.success_lang1' => 'required|integer',
+            '*.success_lang2' => 'required|integer',
+            '*.attempts_lang1' => 'required|integer',
+            '*.attempts_lang2' => 'required|integer',
+            '*.complete' => 'required|integer',
+        ]);
+
+        if($validator->fails()){
+            abort(403, 'Unauthorized Action');
+        }
+
+        //Storage to find userSemantic
+        $userSemanticIDStorage = 0;
+        $userSemanticAcquired = 0;
+
+        //Check The Values!
+        foreach($reviewRecordBreak as $review){
+            $idValidation = UserVocabulary::where('id', $review['entry_id'])->where('user_id', auth()->id())->first();
+            if ($idValidation == null){
+                //Fails because someone has changed the ID done something! Dont add it in and just go to the next one!
+            } else {
+                //Use the ID Validation and Update through it!
+                $idValidation->attempts_lang1 = $idValidation->attempts_lang1 + $review['attempts_lang1'];
+                $idValidation->success_lang1 = $idValidation->success_lang1 + $review['success_lang1'];
+                $idValidation->attempts_lang2 = $idValidation->attempts_lang2 + $review['attempts_lang2'];
+                $idValidation->success_lang2 = $idValidation->success_lang2 + $review['success_lang2'];
+
+                $idValidation->memorizationLevel = $reviewSetting[0][$idValidation->memorizationLevel]['nextLevel'];
+                $idValidation->nextReview = Carbon::now()->timestamp + $reviewSetting[0][$idValidation->memorizationLevel]['nextLevelReview'];   
+                
+                if ($userSemanticAcquired == 0){
+                    //Do this operation only once!
+                    $userSemanticIDStorage = $idValidation->semantic_id;
+                    $userSemanticAcquired = 1;
+                }
+            
+            }
+
+            $idValidation->save();
+        }
+
+        //Update the User Semantic Mapping!
+        $userSemanticUpdate = userSemantic::where('semantic_id', $userSemanticIDStorage)->where('user_id', auth()->id())->first();
+        $userSemanticUpdate->completion = 1;
+        $userSemanticUpdate->save();
 
         return redirect('/menu');
     }

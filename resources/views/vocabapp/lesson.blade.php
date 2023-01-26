@@ -330,8 +330,8 @@ for (var i = 0; i < reviewRecordList.length; i++) {
         <p>Welcome to a Review Session. In a Review Session, you will be shown Indonesian or English words. Your goal is to answer Indonesian with it's English counterpart
             and answer English with it's Indonesian counterpart.</p>
         <br>
-        <p>Type your answer in the [Input] provided and once your are confident, press [Enter] or click [Submit] to check the answer. Aim to get all of the correct first try,
-            if you got it wrong, there are no penalties! If you have difficulties, you can click [Reveal Details] to see the Mnemonic or Semantic Mapping again.</p>
+        <p>Type your answer in the [Input] provided and once your are confident, press [Enter] or click [Submit] to check the answer. Aim to get all of your answers correct first try,
+            but if you got it wrong, there are no penalties! If you have difficulties, you can click [Reveal Details] to see the Mnemonic or Semantic Mapping again.</p>
         <br>
         <p>Each Review session has 5 words you will recall. Once you have answered them all, follow the instructions on the pop up to [Submit Result]. 
             You will be redirected to [Main Menu] and you can start another Review Session.</p> 

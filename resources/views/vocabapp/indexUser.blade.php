@@ -31,7 +31,7 @@
             <h1>Menu Tutorial</h1>
             <hr>
             <p>Welcome to the Indonesian English E-learning Vocabulary Application. 
-                The application aims to aid your Indonesian vocabulary memorization using Mnemonic Keyword and Semantic Mapping (future update). </p>
+                The application aims to aid your Indonesian vocabulary memorization using Mnemonic Keyword and Semantic Mapping. </p>
             <br>
             <p>To start, press the [Lesson] button. This starts a new Lesson session. The lesson will teach you the vocabulary you will be learning using the techniques mentioned. 
                 After a Lesson Session, a Review Session will automatically start to help you recall the words you have learned.</p>
@@ -43,12 +43,23 @@
             <!-- Learn -->
             <div class="learnSection">
                 @unless($newLessons == null)
-                <a href={{route('lesson')}}><p>Lesson</p></a>
-                <p>Start a new lesson session.</p>
-                <p>{{$newLessons}} lesson(s) available!</p>
+                @if($userLevel == 2)
+                    <a href={{route('semantic')}}><p>Semantic Lesson</p></a>
+                    <p>Start a new semantic lesson session.</p>
+                    <p>{{$newLessons}} semantic(s) exercise available!</p>
+                @else
+                    <a href={{route('lesson')}}><p>Lesson</p></a>
+                    <p>Start a new lesson session.</p>
+                    <p>{{$newLessons}} lesson(s) available!</p>
+                @endif
+                @else
+                @if($userLevel == 2)
+                <p>Semantic Lesson</p>
+                <p>Currently unavailable.</p>
                 @else
                 <p>Lesson</p>
                 <p>Currently unavailable.</p>
+                @endif
                 @endunless
                 
             </div>

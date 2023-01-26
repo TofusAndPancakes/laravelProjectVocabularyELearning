@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Level;
 use App\Models\Vocabulary;
+use App\Models\Semantic;
 
 class AdminController extends Controller
 {
@@ -18,6 +19,7 @@ class AdminController extends Controller
         return view('admins.indexVocabulary', [
             'level'=> $level,
             'vocabularies' => Vocabulary::where('level_id', $level->id)->get(),
+            'semantics' => Semantic::where('level_id', $level->id)->get(),
         ]);
     }
 

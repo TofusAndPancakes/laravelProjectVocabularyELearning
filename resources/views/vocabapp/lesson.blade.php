@@ -575,6 +575,9 @@ var review_current = 0;
 //User Reviewing (After Correct Set or After wrong Answer)
 var review_pause_state = 0;
 
+//Placeholder Text Change!
+const inputAnswer = document.getElementById('answer');
+
 function nextEntry() {
 //Reveal Details Addon
 reviewQuickAccessText.textContent = newReviewList[review_current]['mnemoniclist'];
@@ -583,12 +586,20 @@ if (newReviewList[review_current]['test_type'] == 1){
   //console.log(newReviewList[review_current]['language1']);
   //console.log(newReviewList[review_current]['language2']);
   questionArea.textContent = newReviewList[review_current]['language1'];
+
+  //Change the Placeholder!
+  inputAnswer.placeholder = "Type Answer in English here!";
+
   //console.log(review_current);
   //console.log(newReviewList[review_current]['language1']);
 } else if (newReviewList[review_current]['test_type'] == 2){
   questionArea.textContent = newReviewList[review_current]['language2'];
+  
   //console.log(review_current);
   //console.log(newReviewList[review_current]['language1']);
+
+  //Change the Placeholder!
+  inputAnswer.placeholder = "Type Answer in Indonesian here!";
 }
 }
 

@@ -319,7 +319,7 @@ for (var i = 0; i <= reviewRecordList.length - 1; i++) {
                     <p id="categorySM1"></p>
                     <hr>
                     <form id="formSM1">
-                        <label><span class="semanticMappingCenterSubtitle">Semantic Category<span><input id="answerSM1" name="answer" value="" placeholder="Type Answer Here!" class="semanticMappingNodesInput"></label>
+                        <label><span class="semanticMappingCenterSubtitle">Semantic Category<span><input id="answerSM1" name="answer" value="" placeholder="Type Indonesian Here!" class="semanticMappingNodesInput"></label>
                         <input class="semanticButton" type="submit" value="Check">
                     </form>
                     <div class="semanticMappingClues" id="clueSM1">
@@ -334,7 +334,7 @@ for (var i = 0; i <= reviewRecordList.length - 1; i++) {
                     <p id="categorySM2"></p>
                     <hr>
                     <form id="formSM2">
-                        <label><span class="semanticMappingCenterSubtitle">Semantic Category<span><input id="answerSM2" name="answer" value="" placeholder="Type Answer Here!" class="semanticMappingNodesInput"></label>
+                        <label><span class="semanticMappingCenterSubtitle">Semantic Category<span><input id="answerSM2" name="answer" value="" placeholder="Type Indonesian Here!" class="semanticMappingNodesInput"></label>
                         <input class="semanticButton" type="submit" value="Check" placeholder="Type Relevant Vocabulary Here!">
                     </form>
                     <div class="semanticMappingClues" id="clueSM2">
@@ -349,7 +349,7 @@ for (var i = 0; i <= reviewRecordList.length - 1; i++) {
                     <p id="categorySM3"></p>
                     <hr>
                     <form id="formSM3">
-                        <label><span class="semanticMappingCenterSubtitle">Semantic Category<span><input id="answerSM3" name="answer" value="" placeholder="Type Answer Here!" class="semanticMappingNodesInput"></label>
+                        <label><span class="semanticMappingCenterSubtitle">Semantic Category<span><input id="answerSM3" name="answer" value="" placeholder="Type Indonesian Here!" class="semanticMappingNodesInput"></label>
                         <input class="semanticButton" type="submit" value="Check">
                     </form>
                     <div class="semanticMappingClues" id="clueSM3">
@@ -364,7 +364,7 @@ for (var i = 0; i <= reviewRecordList.length - 1; i++) {
                     <p id="categorySM4"></p>
                     <hr>
                     <form id="formSM4">
-                        <label><span class="semanticMappingCenterSubtitle">Semantic Category<span><input id="answerSM4" name="answer" value="" placeholder="Type Answer Here!" class="semanticMappingNodesInput"></label>
+                        <label><span class="semanticMappingCenterSubtitle">Semantic Category<span><input id="answerSM4" name="answer" value="" placeholder="Type Indonesian Here!" class="semanticMappingNodesInput"></label>
                         <input class="semanticButton" type="submit" value="Check">
                     </form>
                     <div class="semanticMappingClues" id="clueSM4">
@@ -379,7 +379,7 @@ for (var i = 0; i <= reviewRecordList.length - 1; i++) {
                     <p id="categorySM5"></p>
                     <hr>
                     <form id="formSM5">
-                        <label><span class="semanticMappingCenterSubtitle">Semantic Category<span><input id="answerSM5" name="answer" value="" placeholder="Type Answer Here!" class="semanticMappingNodesInput"></label>
+                        <label><span class="semanticMappingCenterSubtitle">Semantic Category<span><input id="answerSM5" name="answer" value="" placeholder="Type Indonesian Here!" class="semanticMappingNodesInput"></label>
                         <input class="semanticButton" type="submit" value="Check">
                     </form>
                     <div class="semanticMappingClues" id="clueSM5">
@@ -495,6 +495,8 @@ for (var i = 0; i <= reviewRecordList.length - 1; i++) {
             <p>Click [Check] to check if the vocabulary word you typed in that category is correct. If it is correct, the word will turn [Green] on the vocabulary list.
                 If there are multiple words for that category remaning or you got it wrong in that category, the mapping will ask you to [Check Again].
             </p>
+            <br>
+            <p>You can also click [Show Clues] to see the English vocabulary words for each category if you have difficulties.</p>
             <br>
             <p>Once you have inputed all of the vocabulary in the vocabulary list correctly, follow the instructions in the pop up and click [Yes] when you are ready.</p>
         </div>
@@ -1122,6 +1124,9 @@ var review_current = 0;
 //User Reviewing (After Correct Set or After wrong Answer)
 var review_pause_state = 0;
 
+//Placeholder Text Change!
+const inputAnswer = document.getElementById('answer');
+
 function nextEntry() {
     
     //console.log("Test Type being checked  " + newReviewList[review_current]['test_type'] + " Review Current " + review_current);
@@ -1133,6 +1138,9 @@ function nextEntry() {
         //Reveal Details Addon
         reviewQuickAccessText.textContent = newReviewList[review_current]['semanticlist'];
 
+        //Change the Placeholder!
+        inputAnswer.placeholder = "Type Answer in Indonesian here!";
+
         //console.log(review_current);
         //console.log(newReviewList[review_current]['language1']);
     } else if (newReviewList[review_current]['test_type'] == 2) {
@@ -1140,6 +1148,9 @@ function nextEntry() {
 
         //Reveal Details Addon
         reviewQuickAccessText.textContent = newReviewList[review_current]['semanticlist'];
+
+        //Change the Placeholder!
+        inputAnswer.placeholder = "Type Answer in English here!";
 
         //console.log(review_current);
         //console.log(newReviewList[review_current]['language1']);

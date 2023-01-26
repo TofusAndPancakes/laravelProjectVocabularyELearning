@@ -158,19 +158,24 @@ class WebAppController extends Controller
                 $nextSegment = 0;
 
                 //Temporarily Storing the Semantic List Title
-                $semanticTitle;
-                $semanticSegment;
+                $semanticTitleL1;
+                $semanticTitleL2;
+                $semanticSegmentL1;
+                $semanticSegmentL2;
+
 
                 foreach($semanticL1Split as $semanticL1){
 
                     if ($nextTitle == 1){
                         //The Next Entry is SemanticTitle
-                        $semanticTitle = $semanticL1;
+                        $semanticTitleL1 = $semanticL1;
+                        $semanticTitleL2 = $semanticL2Split[$counter];
                         $nextTitle = 0;
                         $counter++;
                     } else if ($nextSegment == 1){
                         //The Next Entry is SemanticSegment
-                        $semanticSegment = $semanticL1;
+                        $semanticSegmentL1 = $semanticL1;
+                        $semanticSegmentL2 = $semanticL2Split[$counter];
                         $nextSegment = 0;
                         $counter++;
                     } else if ($semanticL1 == "SemanticTitle"){
@@ -201,7 +206,7 @@ class WebAppController extends Controller
                     $formFields['language2'] = $semanticL2Split[$counter];
                     $formFields['mnemonics'] = "Semantic Lesson";
                     $formFields['mnemoniclist'] = "Semantic Lesson";
-                    $formFields['semanticlist'] = $semanticTitle . " - " . $semanticSegment . " - " . $semanticL1;
+                    $formFields['semanticlist'] = $semanticTitleL1 . " (".$semanticTitleL2.") - " . $semanticSegmentL1 . " (".$semanticSegmentL2.") - " . $semanticL1;
                     $formFields['nextReview'] = Carbon::now()->timestamp;
 
                     //NextReview temporarily zero...

@@ -122,7 +122,7 @@ class WebAppController extends Controller
         $newLessons = UserVocabulary::where('user_id', auth()->id())
                                         ->where('level_id', $level->id)
                                         ->where('memorizationLevel', 'basic0')
-                                        ->oldest('updated_at')->take(5)->get();
+                                        ->oldest('updated_at')->take(6)->get();
 
         return view('vocabapp.lesson', [
             'newLessons' => $newLessons,
@@ -515,7 +515,7 @@ class WebAppController extends Controller
                                     ->where('memorizationLevel', '<>', 'basic0')
                                     ->where('memorizationLevel', '<>', 'max')
                                     ->where('nextReview', '<=', Carbon::now()->timestamp)
-                                    ->oldest('updated_at')->take(5)->get();
+                                    ->oldest('updated_at')->take(12)->get();
 
         return view('vocabapp.review', [
         'newReviews' => $newReviews,

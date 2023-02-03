@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //Create 2 random users
-        \App\Models\User::factory(2)->create();
+        \App\Models\User::factory(1)->create();
 
         //Create Level 1
         $level = Level::create( [

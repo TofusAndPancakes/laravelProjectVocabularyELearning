@@ -333,7 +333,7 @@ for (var i = 0; i < reviewRecordList.length; i++) {
         <p>Type your answer in the [Input] provided and once your are confident, press [Enter] or click [Submit] to check the answer. Aim to get all of your answers correct first try,
             but if you got it wrong, there are no penalties! If you have difficulties, you can click [Reveal Details] to see the Mnemonic or Semantic Mapping again.</p>
         <br>
-        <p>Each Review session has 5 words you will recall. Once you have answered them all, follow the instructions on the pop up to [Submit Result]. 
+        <p>Each Review session has 12 words you will recall (6 words in Lessons). Once you have answered them all, follow the instructions on the pop up to [Submit Result]. 
             You will be redirected to [Main Menu] and you can start another Review Session.</p> 
         <br>
         </div>
@@ -502,7 +502,7 @@ const lessonMnemonics = document.getElementById('lessonMnemonics');
 function nextLesson(){
     lessonLanguage1.textContent = newLessonList[lesson_current]['language1'];
     lessonLanguage2.textContent = newLessonList[lesson_current]['language2'];
-    lessonMnemonics.textContent = newLessonList[lesson_current]['mnemonics'];
+    lessonMnemonics.innerHTML = newLessonList[lesson_current]['mnemonics'];
 }
 
 function previousLessonButton(){
@@ -551,7 +551,7 @@ function loadReview(){
     lessonStateEnd();
 
     review_state = 1;
-    console.log("Starting Review!");
+    //console.log("Starting Review!");
 
     //Initializing Review
     lessonAreaClass.toggle('displayNoneStyle');
@@ -580,7 +580,7 @@ const inputAnswer = document.getElementById('answer');
 
 function nextEntry() {
 //Reveal Details Addon
-reviewQuickAccessText.textContent = newReviewList[review_current]['mnemoniclist'];
+reviewQuickAccessText.innerHTML = newReviewList[review_current]['mnemoniclist'];
 //console.log("Test Type being checked  " + newReviewList[review_current]['test_type'] + " Review Current " + review_current);
 if (newReviewList[review_current]['test_type'] == 1){
   //console.log(newReviewList[review_current]['language1']);
@@ -653,7 +653,7 @@ function getData(form) {
 
         }
       } else if (reviewRecordList[record_id]['success_lang1'] == 1 || reviewRecordList[record_id]['success_lang2'] == 1) {
-          console.log("Case2");
+          //console.log("Case2");
           //If you have one of them correct already, that means success!
           if (newReviewList[review_current]['test_type'] == 1){
             
@@ -718,7 +718,7 @@ function getData(form) {
       nextEntry();
     } else {
         console.log("Stop!");
-        endReview();
+        //endReview();
     }
 
     resultArea.textContent = "";
@@ -760,6 +760,7 @@ function getCorrect(form) {
   }
 }
 
+/*
 function endReview() {
   //Quick Tester for Values
   while(i < reviewRecordList.length){
@@ -773,6 +774,7 @@ function endReview() {
   }
 
 }
+*/
 
 document.getElementById("myForm").addEventListener("submit", function (event) {
   event.preventDefault();

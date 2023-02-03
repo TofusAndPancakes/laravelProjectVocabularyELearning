@@ -83,7 +83,7 @@ var newLessonSemanticListIDContainer = "";
 
 for (var i = 0; i < semanticCategoryLanguage1ListSplit.length; i++) {
     
-    console.log(semanticCategoryLanguage1ListSplit[i]);
+    //console.log(semanticCategoryLanguage1ListSplit[i]);
 
     //Check if it's SemanticTitle
     if (semanticCategoryLanguage1ListSplit[i] == "SemanticTitle") {
@@ -236,7 +236,7 @@ for (var i = 0; i <= newLessonSemanticList.length - 1; i++) {
     console.log(newLessonSemanticList[i]['language2']);
     console.log(newLessonSemanticList[i]['contentid']);
 }
-*/
+
 for (var i = 0; i <= newReviewList.length - 1; i++) {
     console.log(i);
     console.log(newReviewList[i]['language1']);
@@ -244,7 +244,7 @@ for (var i = 0; i <= newReviewList.length - 1; i++) {
     console.log(newReviewList[i]['semanticlist']);
     console.log(newReviewList[i]['record_id']);
 }
-/*
+
 for (var i = 0; i <= reviewRecordList.length - 1; i++) {
     console.log(i);
     console.log(reviewRecordList[i]['entry_id']);
@@ -520,7 +520,7 @@ for (var i = 0; i <= reviewRecordList.length - 1; i++) {
             <p>Type your answer in the [Input] provided and once your are confident, press [Enter] or click [Submit] to check the answer. Aim to get all of your answers correct first try,
             but if you got it wrong, there are no penalties! If you have difficulties, you can click [Reveal Details] to see the Mnemonic or Semantic Mapping again.</p>  
             <br>
-            <p>Each Review session has 5 words you will recall. Once you have answered them all, follow the instructions
+            <p>Each Review session has 12 words you will recall (6 words in Lessons). Once you have answered them all, follow the instructions
                 on the pop up to [Submit Result].
                 You will be redirected to [Main Menu] and you can start another Review Session.</p>
             <br>
@@ -722,7 +722,7 @@ function loadReview() {
     //lessonStateEnd();
 
     review_state = 1;
-    console.log("Starting Review!");
+    //console.log("Starting Review!");
 
     //Initializing Review
     semanticAreaClass.toggle('displayNoneStyle');
@@ -740,7 +740,7 @@ function loadReview() {
 //Shortcut Version opened using Start Review Button
 function loadReviewShortcut(){
     review_state = 1;
-    console.log("Starting Review!");
+    //console.log("Starting Review!");
 
     //Initializing Review
     semanticAreaClass.toggle('displayNoneStyle');
@@ -894,7 +894,7 @@ function getDataCheck(form, SMNumber, SMNumberID, SM) {
     for (var p = 0; p < checkAnswer.length; p++) {
         for (var i = 0; i < checkReference.length; i++) {
             similarity_result = similarity(checkReference[i], checkAnswer[p]);
-            console.log("The Reference = " + checkReference[i] + "The Answer = " + checkAnswer[p] + " Similarity = " + similarity_result);
+            //console.log("The Reference = " + checkReference[i] + "The Answer = " + checkAnswer[p] + " Similarity = " + similarity_result);
             if (similarity_result == 1){
                 //Blur out the word in the Word List!
                 var vocabSegmentID = document.getElementById("vocabSegmentList"+checkAnswerID[i]);
@@ -909,7 +909,7 @@ function getDataCheck(form, SMNumber, SMNumberID, SM) {
     if (checkCounter == checkReference.length){
         if (SM == 0) {
             if (correctSM1 == 0){
-                console.log("Category 1 is Complete!");
+                //console.log("Category 1 is Complete!");
                 correctSM1 = 1;
                 semanticCompletionProgress++;
                 semanticProgressBarUpdate();
@@ -920,7 +920,7 @@ function getDataCheck(form, SMNumber, SMNumberID, SM) {
 
         } else if (SM == 1){
             if (correctSM2 == 0) {
-                console.log("Category 2 is Complete!");
+                //console.log("Category 2 is Complete!");
                 correctSM2 = 1;
                 semanticCompletionProgress++;
                 semanticProgressBarUpdate();
@@ -931,7 +931,7 @@ function getDataCheck(form, SMNumber, SMNumberID, SM) {
             
         } else if (SM == 2) {
             if (correctSM3 == 0){
-                console.log("Category 3 is Complete!");
+                //console.log("Category 3 is Complete!");
                 correctSM3 = 1;
                 semanticCompletionProgress++;
                 semanticProgressBarUpdate();
@@ -943,7 +943,7 @@ function getDataCheck(form, SMNumber, SMNumberID, SM) {
 
         } else if (SM == 3) {
             if (correctSM4 == 0){
-                console.log("Category 4 is Complete!");
+                //console.log("Category 4 is Complete!");
                 correctSM4 = 1;
                 semanticCompletionProgress++;
                 semanticProgressBarUpdate();
@@ -955,7 +955,7 @@ function getDataCheck(form, SMNumber, SMNumberID, SM) {
 
         } else if (SM == 4) {
             if (correctSM5 == 0) {
-                console.log("Category 5 is Complete!");
+                //console.log("Category 5 is Complete!");
                 correctSM5 = 1;
                 semanticCompletionProgress++;
                 semanticProgressBarUpdate();
@@ -967,31 +967,31 @@ function getDataCheck(form, SMNumber, SMNumberID, SM) {
 
     } else {
         if (SM == 0) {
-            console.log("Category 1 Incomplete!");
+            //console.log("Category 1 Incomplete!");
             reviewAreaCorrectionBox1.style.display = 'block';
             reviewAreaCorrectionBox1.style.backgroundColor = '#ffc76e';
             reviewAreaCorrectionText1.textContent = "CHECK AGAIN";
 
         } else if (SM == 1) {
-            console.log("Category 2 is Incomplete!");
+            //console.log("Category 2 is Incomplete!");
             reviewAreaCorrectionBox2.style.display = 'block';
             reviewAreaCorrectionBox2.style.backgroundColor = '#ffc76e';
             reviewAreaCorrectionText2.textContent = "CHECK AGAIN";
 
         } else if (SM == 2) {
-            console.log("Category 3 is Incomplete!");
+            //console.log("Category 3 is Incomplete!");
             reviewAreaCorrectionBox3.style.display = 'block';
             reviewAreaCorrectionBox3.style.backgroundColor = '#ffc76e';
             reviewAreaCorrectionText3.textContent = "CHECK AGAIN";
 
         } else if (SM == 3) {
-            console.log("Category 4 is Incomplete!");
+            //console.log("Category 4 is Incomplete!");
             reviewAreaCorrectionBox4.style.display = 'block';
             reviewAreaCorrectionBox4.style.backgroundColor = '#ffc76e';
             reviewAreaCorrectionText4.textContent = "CHECK AGAIN";
 
         } else if (SM == 4) {
-            console.log("Category 5 is Incomplete!");
+            //console.log("Category 5 is Incomplete!");
             reviewAreaCorrectionBox5.style.display = 'block';
             reviewAreaCorrectionBox5.style.backgroundColor = '#ffc76e';
             reviewAreaCorrectionText5.textContent = "CHECK AGAIN";
@@ -1009,31 +1009,31 @@ for (var i = 0; i < testChecker.length; i++) {
 
 document.getElementById("formSM1").addEventListener("submit", function (event) {
     event.preventDefault();
-    console.log('Check Point 1!');
+    //console.log('Check Point 1!');
     getDataCheck(event.target, checkerSM1, checkerSM1VocabID, "0");
 });
 
 document.getElementById("formSM2").addEventListener("submit", function (event) {
     event.preventDefault();
-    console.log('Check Point 2!');
+    //console.log('Check Point 2!');
     getDataCheck(event.target, checkerSM2, checkerSM2VocabID, "1");
 });
 
 document.getElementById("formSM3").addEventListener("submit", function (event) {
     event.preventDefault();
-    console.log('Check Point 3!');
+    //console.log('Check Point 3!');
     getDataCheck(event.target, checkerSM3, checkerSM3VocabID, "2");
 });
 
 document.getElementById("formSM4").addEventListener("submit", function (event) {
     event.preventDefault();
-    console.log('Check Point 4!');
+    //console.log('Check Point 4!');
     getDataCheck(event.target, checkerSM4, checkerSM4VocabID, "3");
 });
 
 document.getElementById("formSM5").addEventListener("submit", function (event) {
     event.preventDefault();
-    console.log('Check Point 5!');
+    //console.log('Check Point 5!');
     getDataCheck(event.target, checkerSM5, checkerSM5VocabID,  "4");
 });
 
@@ -1207,7 +1207,7 @@ function getData(form) {
 
             }
         } else if (reviewRecordList[record_id]['success_lang1'] == 1 || reviewRecordList[record_id]['success_lang2'] == 1) {
-            console.log("Case2");
+            //console.log("Case2");
             //If you have one of them correct already, that means success!
             if (newReviewList[review_current]['test_type'] == 1) {
 
@@ -1271,7 +1271,7 @@ function getData(form) {
             //If it is not the last one!
             nextEntry();
         } else {
-            console.log("Stop!");
+            //console.log("Stop!");
             endReview();
         }
 
@@ -1305,7 +1305,7 @@ function getCorrect(form) {
     } else {
         //console.log("Stop!");
         review_state = 0;
-        endReview();
+        //endReview();
 
         reviewModalClass.toggle('reviewFinishSectionDisplay');
 
@@ -1314,6 +1314,7 @@ function getCorrect(form) {
     }
 }
 
+/*
 function endReview() {
     console.log("Length of Review Record " + reviewRecordList.length);
     //Quick Tester for Values
@@ -1327,6 +1328,7 @@ function endReview() {
     }
 
 }
+*/
 
 document.getElementById("myForm").addEventListener("submit", function (event) {
     event.preventDefault();

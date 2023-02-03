@@ -263,7 +263,7 @@ for (var i = 0; i < reviewRecordList.length; i++) {
         <p>Type your answer in the [Input] provided and once your are confident, press [Enter] or click [Submit] to check the answer. Aim to get all of your answers correct first try,
             but if you got it wrong, there are no penalties! If you have difficulties, you can click [Reveal Details] to see the Mnemonic or Semantic Mapping again.</p>
         <br>
-        <p>Each Review session has 5 words you will recall. Once you have answered them all, follow the instructions on the pop up to [Submit Result]. 
+        <p>Each Review session has 12 words you will recall (6 words in Lessons). Once you have answered them all, follow the instructions on the pop up to [Submit Result]. 
             You will be redirected to [Main Menu] and you can start another Review Session.</p> 
         <br>
         </div>
@@ -395,7 +395,7 @@ if (newReviewList[review_current]['mnemoniclist'] == "Semantic Lesson") {
     reviewQuickAccessText.textContent = newReviewList[review_current]['semanticlist'];
 } else {
     //Group 1 and other Students
-    reviewQuickAccessText.textContent = newReviewList[review_current]['mnemoniclist'];
+    reviewQuickAccessText.innerHTML = newReviewList[review_current]['mnemoniclist'];
 }
 
 
@@ -470,7 +470,7 @@ function getData(form) {
 
         }
         } else if (reviewRecordList[record_id]['success_lang1'] == 1 || reviewRecordList[record_id]['success_lang2'] == 1) {
-            console.log("Case2");
+            //console.log("Case2");
             //If you have one of them correct already, that means success!
             if (newReviewList[review_current]['test_type'] == 1){
             
@@ -536,7 +536,7 @@ function getData(form) {
         nextEntry();
     } else {
         //console.log("Stop!");
-        endReview();
+        //endReview();
     }
 
     resultArea.textContent = "";
@@ -577,6 +577,7 @@ function getCorrect(form) {
     }
 }
 
+/*
 function endReview() {
     //Quick Tester for Values
     while(i < reviewRecordList.length){
@@ -590,6 +591,7 @@ function endReview() {
     }
 
 }
+*/
 
 document.getElementById("myForm").addEventListener("submit", function (event) {
     event.preventDefault();
